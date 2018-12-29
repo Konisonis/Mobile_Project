@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Patient_Devices_List">
 
+
     <ListView
         android:id="@+id/ListView"
         android:layout_width="368dp"
