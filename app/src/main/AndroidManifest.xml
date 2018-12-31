@@ -28,7 +28,10 @@
         <activity android:name=".Patient_Main_Page" />
         <activity android:name=".Patient_Messages" />
         <activity android:name=".Patient_Profile" />
-        <activity android:name=".Patient_App_Info"></activity>
+        <activity android:name=".Patient_App_Info" />
+        <activity android:name=".Doctor_Main_Page" />
+        <activity android:name=".Doctor_Add_Patient" />
+        <activity android:name=".Doctor_Search_Patient"></activity>
     </application>
 
 </manifest>
