@@ -76,22 +76,20 @@ public class Doctor_Main_Page extends AppCompatActivity {
      * Creates some dummy patient_list data till database functionality is implemented
      */
     private void createDummyListData() {
-        Patient pat1 = new Patient("12345", R.drawable.Ravell, "Ravell", "Heerdegen", "ravell@heerdegen.com", "ravell123");
-        Patient pat2 = new Patient("98765", R.drawable.Trang,"Trang", "Le", "trang@le.com", "trang123");
-        Patient pat3 = new Patient("34567", R.drawable.Konstantin,"Konstantin", "Rosenberg", "konstantin@rosenberg.com", "konst123");
-        Patient pat4 = new Patient("76543", R.drawable.Jan,"Jan", "Pohl", "jan@pohl.com", "jan123");
-        Patient pat5 = new Patient("23456", R.drawable.Robin,"Robin", "Schramm", "robin@schramm.com", "robin123");
-        Patient pat6 = new Patient("54673", R.drawable.Ioan,"Ioan", "Maftei", "ioan@maftei.com", "ioan123");
-        Patient pat7 = new Patient("12345", R.drawable.Maximilian,"Maximilian", "Waiblinger", "maximilian@waiblinger.com", "max123");
+        Patient pat1 = new Patient("12345", R.drawable.ravell, "Ravell", "Heerdegen", "15.02.1993","ravell@heerdegen.com", "ravell123");
+        Patient pat2 = new Patient("98765", R.drawable.trang,"Trang", "Le", "23.04.1995","trang@le.com", "trang123");
+        Patient pat3 = new Patient("34567", R.drawable.konstantin,"Konstantin", "Rosenberg", "23.04.1995","konstantin@rosenberg.com", "konst123");
+        Patient pat4 = new Patient("76543", R.drawable.jan,"Jan", "Pohl", "23.04.1990","jan@pohl.com", "jan123");
+        Patient pat5 = new Patient("23456", R.drawable.robin,"Robin", "Schramm", "23.04.1992","robin@schramm.com", "robin123");
+        Patient pat6 = new Patient("54673", R.drawable.ioan,"Ioan", "Maftei", "23.04.1991","ioan@maftei.com", "ioan123");
+        Patient pat7 = new Patient("12345", R.drawable.maximilian,"Maximilian", "Waiblinger", "23.04.1994","maximilian@waiblinger.com", "max123");
 
         // Create the dummy patients which are smaller datasets for display
         ArrayList<Patient> patients = new ArrayList<Patient>();
-        ArrayList<ListPatient> listpatients = new ArrayList<ListPatient>();
         images = new ArrayList<>();
         ids = new ArrayList<>();
         fullnames = new ArrayList<>();
         for(Patient patient : patients) {
-            listpatients.add(new ListPatient(patient.getID(), patient.getFullname(), patient.getImg()));
             images.add(patient.getImg());
             ids.add(patient.getID());
             fullnames.add(patient.getFullname());
@@ -135,6 +133,16 @@ public class Doctor_Main_Page extends AppCompatActivity {
             switch (requestcode) {
                 case 0:
                     // Add the new patient
+                    String id = intent.getStringExtra("id");
+                    String forname = intent.getStringExtra("forname");
+                    String lastname = intent.getStringExtra("lastname");
+                    String birthdate = intent.getStringExtra("birthdate");
+                    String password = intent.getStringExtra("password");
+                    Patient patty = new Patient(id, R.drawable.jan, forname, lastname, birthdate, forname.toLowerCase() +
+                            "@" + lastname.toLowerCase() + ".com", password);
+                    images.add(patty.getImg());
+                    fullnames.add(patty.getFullname());
+                    ids.add(patty.getID());
                     break;
                 case 1:
                     // Show the detailed view of a patient if found

@@ -21,7 +21,16 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <!-- For Doctor Main Page -->
+    <!-- For Doctor -->
     <string name="addpatient">Add Patient</string>
+    <string name="addpatienttolist">Add Patient to List</string>
     <string name="searchpatient">Search Patient</string>
+    <string name="searchpatientinlist">Search Patient in list</string>
+    <string-array name="searchoptions">
+        <item>ID</item>
+        <item>Forname</item>
+        <item>Lastname</item>
+        <item>Device</item>
+    </string-array>
+
 </resources>

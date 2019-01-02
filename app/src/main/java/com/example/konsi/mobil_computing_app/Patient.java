@@ -16,16 +16,18 @@ public class Patient {
     private String forname;
     private String lastname;
     private String fullname;
+    private String birthdate;
     private String email;
     private String password;
     private ArrayList<BluetoothClass.Device> devices;
 
-    public Patient(String id, int img, String forname, String lastname, String email, String password) {
+    public Patient(String id, int img, String forname, String lastname, String birthdate, String email, String password) {
         setID(id);
         setImg(img);
         setForname(forname);
         setLastname(lastname);
         setFullname(forname + " " + lastname);
+        setBirthdate(birthdate);
         setEmail(email);
         setPassword(password);
         this.devices = new ArrayList<>();
@@ -109,6 +111,22 @@ public class Patient {
      */
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    /**
+     * returns the birthdate of a patient
+     * @return the birthdate as string
+     */
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    /**
+     * sets the birthdate of a patient
+     * @param birthdate the birthdate as string
+     */
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
     /**

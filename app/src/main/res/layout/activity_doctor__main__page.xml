@@ -71,25 +71,23 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/patients_layout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ScrollView
+        android:fillViewport="true">
+        <LinearLayout
+            android:id="@+id/patients_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
-
+            android:orientation="vertical">
             <ListView
                 android:id="@+id/patients_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </ListView>
 
-        </ScrollView>
+        </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
