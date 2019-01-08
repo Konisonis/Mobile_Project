@@ -1,7 +1,5 @@
 package com.example.konsi.mobil_computing_app;
 
-import android.bluetooth.BluetoothClass;
-
 import java.util.ArrayList;
 
 /**
@@ -19,9 +17,10 @@ public class Patient {
     private String birthdate;
     private String email;
     private String password;
-    private ArrayList<BluetoothClass.Device> devices;
+    private String correspondingDoctorID;
+    private ArrayList<String> devices;
 
-    public Patient(String id, int img, String forname, String lastname, String birthdate, String email, String password) {
+    public Patient(String id, int img, String forname, String lastname, String birthdate, String email, String password, String doctorID) {
         setID(id);
         setImg(img);
         setForname(forname);
@@ -30,7 +29,11 @@ public class Patient {
         setBirthdate(birthdate);
         setEmail(email);
         setPassword(password);
+        setDoctor(doctorID);
         this.devices = new ArrayList<>();
+        this.devices.add("Heartbeat");
+        this.devices.add("Bloodpressure");
+        this.devices.add("Steps");
     }
 
     /**
@@ -162,10 +165,26 @@ public class Patient {
     }
 
     /**
+     * sets the doctor id
+     * @param doctorid the doctor id
+     */
+    public void setDoctor(String doctorid) {
+        this.correspondingDoctorID = doctorid;
+    }
+
+    /**
+     * returns the doctor id operating the patient
+     * @return the doctor id
+     */
+    public String getDoctorID() {
+        return this.correspondingDoctorID;
+    }
+
+    /**
      * returns the devicelist of a patient
      * @return the devices
      */
-    public ArrayList<BluetoothClass.Device> getDevices() {
+    public ArrayList<String> getDevices() {
         return devices;
     }
 

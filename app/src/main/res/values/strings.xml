@@ -22,6 +22,8 @@
     <string name="action_settings">Settings</string>
 
     <!-- For Doctor -->
+    <string name="sorttabletext">Tabelle sortieren</string>
+    <string name="filtertabletext">Tabelle filtern</string>
     <string name="addpatient">Add Patient</string>
     <string name="addpatienttolist">Add Patient to List</string>
     <string name="searchpatient">Search Patient</string>
