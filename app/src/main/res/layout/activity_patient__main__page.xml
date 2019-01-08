@@ -6,4 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".Patient_Main_Page">
 
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="160dp"
+        android:layout_height="160dp" >
+
+        <ImageButton
+            android:id="@+id/heartbeat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:onClick="clickHeartbeat"
+            android:scaleType="fitCenter"
+            android:src="@drawable/heartbeat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

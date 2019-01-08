@@ -47,15 +47,30 @@ public class Patient_Devices_List extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent profileIntent = new Intent(this, Patient_Profile.class);
+        Intent devicesIntent = new Intent(this, Patient_Devices_List.class);
+        Intent infoIntent = new Intent(this, Patient_App_Info.class);
+        Intent logoutIntent = new Intent(this, Patient_Devices_List.class);
+        Intent messageIntent = new Intent(this,Patient_Messages.class);
+
+
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.profile:
+                startActivity(profileIntent);
+                return true;
+            case R.id.message:
+                startActivity(messageIntent);
                 return true;
             case R.id.devices:
+                startActivity(devicesIntent);
                 return true;
             case R.id.info:
+                startActivity(infoIntent);
                 return true;
             case R.id.logout:
+                //TODO Logout
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
