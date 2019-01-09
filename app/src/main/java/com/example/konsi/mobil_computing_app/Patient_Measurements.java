@@ -6,29 +6,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
-public class Patient_Main_Page extends AppCompatActivity {
+public class Patient_Measurements extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient__main__page);
-
-        // Get the Intent that started this activity and extract the string
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(Patient_Devices_List.selected_device);
-
-        // Capture the layout's TextView and set the string as its text
-        //TextView textView = findViewById(R.id.textView);
-        //textView.setText(message);
-
-    }
-
-    public void clickHeartbeat(View view){
-        Intent heartBeatIntent = new Intent(this, Patient_Measurements.class);
-        startActivity(heartBeatIntent);
+        setContentView(R.layout.activity_measurements);
     }
 
 
@@ -38,6 +22,7 @@ public class Patient_Main_Page extends AppCompatActivity {
         inflater.inflate(R.menu.patient_menu, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
