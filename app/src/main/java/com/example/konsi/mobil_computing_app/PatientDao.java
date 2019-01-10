@@ -11,13 +11,13 @@ import java.util.List;
 public interface PatientDao {
 
     @Query("SELECT * FROM patient")
-    List<ListPatient> getAll();
+    List<Patient> getAll();
 
     @Query("SELECT * FROM patient WHERE id IN (:patientId)")
-    List<ListPatient> loadAllByIds(int[] patientId);
+    List<Patient> loadAllByIds(int[] patientId);
 
     @Query("SELECT * FROM patient WHERE email LIKE :email")
-    ListPatient findByEmail(String email);
+    Patient findByEmail(String email);
 
     @Insert
     void insertAll(Patient... Patient);

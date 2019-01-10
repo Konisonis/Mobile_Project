@@ -31,6 +31,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,13 +65,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    //Dummy Database
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //Insert dummy Data into Database TODO
+
         AppDatabase db = AppDatabase.getAppDatabase(this);
+        this.db = db;
+
+
+        //Insert dummy Data into Database TODO
         db.patientDao().insert(new Patient("123",1,"Hanns","Jürgen","01.01.2019","peter@web.de","abcde123","321"));
+
 
 
         super.onCreate(savedInstanceState);
@@ -309,6 +317,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mPassword;
 
         UserLoginTask(String email, String password) {
+
             mEmail = email;
             mPassword = password;
         }
@@ -319,11 +328,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try {
                 // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                Patient patient = db.patientDao().findByEmail("peter@web.de");
+                return patient.getPassword().equals(mPassword);
+
+
+            } catch (Exception e) {
                 return false;
             }
 
+            /*
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
@@ -331,9 +344,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return pieces[1].equals(mPassword);
                 }
             }
+            */
 
             // TODO: register the new account here. you can not register yourself only login
-            return true;
         }
 
         @Override
@@ -342,10 +355,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+               /*
                 SharedPreferences settings = getSharedPreferences("UserInfo", 0);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("Username", mEmail); //TODO get username from Database object instead of e mail
                 editor.commit();
+                */
 
                 finish();
             } else {
