@@ -1,17 +1,19 @@
 package com.example.konsi.mobil_computing_app;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.MainThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,10 +25,11 @@ import java.util.ArrayList;
  */
 public class Doctor_Main_Page extends AppCompatActivity {
 
-    private LinearLayout addpatient;
-    private LinearLayout searchpatient;
-    private LinearLayout sorttable;
-    private LinearLayout filtertable;
+    private EditText search_patient_edittext;
+    private Button search_button;
+    private ImageButton addpatient_button;
+    private ImageButton sorttable_button;
+    private ImageButton filtertable_button;
     private ListView patients_list;
     private ArrayList<Integer> images;
     private ArrayList<String> ids;
@@ -68,13 +71,21 @@ public class Doctor_Main_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor__main__page);
 
-        addpatient = findViewById(R.id.addpatient_view);
-        searchpatient = findViewById(R.id.searchpatient_view);
-        sorttable = findViewById(R.id.sort_table_layout);
-        filtertable = findViewById(R.id.filter_table_layout);
+
+        search_patient_edittext = findViewById(R.id.search_patient_edittext);
+        search_button = findViewById(R.id.search_button);
+        addpatient_button = findViewById(R.id.addpatient_button);
+        sorttable_button = findViewById(R.id.sorttable_button);
+        filtertable_button = findViewById(R.id.filtertable_button);
         patients_list = findViewById(R.id.patients_list);
         initializeListOptionsClicks();
         createDummyListData();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.doctor_menu, menu);
+        return true;
     }
 
     /**
@@ -117,30 +128,41 @@ public class Doctor_Main_Page extends AppCompatActivity {
      * Initializes the click-event handling for the clickable layout views
      */
     private void initializeListOptionsClicks() {
-        addpatient.setOnClickListener(new View.OnClickListener() {
+        // Add a new patient
+        addpatient_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Doctor_Main_Page.this, Doctor_Add_Patient.class);
                 startActivityForResult(intent, 0);
             }
         });
-        searchpatient.setOnClickListener(new View.OnClickListener() {
+        // Search for one patient or multiple
+        search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Doctor_Main_Page.this, Doctor_Search_Patient.class);
-                startActivityForResult(intent, 1);
+                String searchtext = search_patient_edittext.getText().toString();
+                // Check for five numbers in a row
+                if (searchtext.matches("[0-9]{5}")) {
+                    // its the ID
+                } else if(searchtext.matches("[a-zA-Z]{2,} ?[a-zA-Z]*")) {
+                    // its the name
+                } else {
+                    // its the date of birth
+                }
             }
         });
-        sorttable.setOnClickListener(new View.OnClickListener() {
+        // Sort the table by criteria
+        sorttable_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // new Intent going to Doctor_Sort_Table_View
+
             }
         });
-        filtertable.setOnClickListener(new View.OnClickListener() {
+        // Filter the table by criteria
+        filtertable_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // new Intent going to Doctor_Filter_Table_View
+
             }
         });
     }
@@ -168,9 +190,6 @@ public class Doctor_Main_Page extends AppCompatActivity {
                     images.add(patty.getImg());
                     fullnames.add(patty.getFullname());
                     ids.add(patty.getID());
-                    break;
-                case 1:
-                    // Show the detailed view of a patient if found
                     break;
             }
         }

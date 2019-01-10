@@ -33,9 +33,9 @@
         <activity android:name=".Patient_App_Info" />
         <activity android:name=".Doctor_Main_Page" />
         <activity android:name=".Doctor_Add_Patient" />
-        <activity android:name=".Doctor_Search_Patient" />
         <activity android:name=".Doctor_Detailed_Patient" />
-        <activity android:name=".Patient_Measurements"></activity>
+        <activity android:name=".Patient_Measurements" />
+        <activity android:name=".Doctor_Add_Patient_Task"></activity>
     </application>
 
 </manifest>

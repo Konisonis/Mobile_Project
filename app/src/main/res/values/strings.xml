@@ -27,12 +27,13 @@
     <string name="addpatient">Add Patient</string>
     <string name="addpatienttolist">Add Patient to List</string>
     <string name="searchpatient">Search Patient</string>
-    <string name="searchpatientinlist">Search Patient in list</string>
-    <string-array name="searchoptions">
-        <item>ID</item>
-        <item>Forname</item>
-        <item>Lastname</item>
-        <item>Device</item>
+    <string name="searchpatient_hint">ID, Name, Date of birth</string>
+    <string name="searchpatientinlist">Search</string>
+    <string-array name="taskoptions">
+        <item>Heartratio</item>
+        <item>Bloodpressure</item>
+        <item>Steps</item>
+        <item>Temperature</item>
     </string-array>
 
 </resources>
