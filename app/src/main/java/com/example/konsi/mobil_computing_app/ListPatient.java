@@ -3,6 +3,8 @@ package com.example.konsi.mobil_computing_app;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 
 /**
  * Represents a smaller patient object for patients list display and not for saving into database
@@ -11,15 +13,17 @@ import android.arch.persistence.room.PrimaryKey;
 public class ListPatient {
 
 
-    private int img;
+
     @PrimaryKey
-    private String ID;
+    @NonNull
+    private String id;
     @ColumnInfo
     private String name;
+    private int img;
 
-    public ListPatient(String id, String fullname, int img) {
-        setID(id);
-        setName(fullname);
+    public ListPatient(String id, String name, int img) {
+        setId(id);
+        setName(name);
         setImg(img);
     }
 
@@ -43,16 +47,16 @@ public class ListPatient {
      * returns the id of a listpatient
      * @return the id
      */
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
     /**
      * set the id of a patient
-     * @param ID the id
+     * @param id the id
      */
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -69,6 +73,10 @@ public class ListPatient {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getName(){
+        return this.name;
     }
 }
 

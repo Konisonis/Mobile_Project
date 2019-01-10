@@ -13,14 +13,14 @@ public interface DoctorDao {
     @Query("SELECT * FROM listdoctor")
     List<ListDoctor> getAll();
 
-    @Query("SELECT * FROM listdoctor WHERE ID IN (:userIds)")
-    List<ListDoctor> loadAllByIds(int[] userIds);
+    @Query("SELECT * FROM listdoctor WHERE ID IN (:doctorId)")
+    List<ListDoctor> loadAllByIds(int[] doctorId);
 
-    @Query("SELECT * FROM listdoctor WHERE name LIKE :serchName")
-    ListDoctor findByName(String serchName);
+    @Query("SELECT * FROM listdoctor WHERE name LIKE :doctorName")
+    ListDoctor findByName(String doctorName);
 
-    @Query("SELECT * FROM listdoctor WHERE name LIKE :searchId")
-    ListDoctor findByID(String searchId);
+    @Query("SELECT * FROM listdoctor WHERE name LIKE :doctorId")
+    ListDoctor findByID(String doctorId);
 
     @Insert
     void insertAll(ListDoctor... listDoctors);
