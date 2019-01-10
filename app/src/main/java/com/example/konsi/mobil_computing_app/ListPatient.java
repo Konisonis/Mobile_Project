@@ -1,17 +1,25 @@
 package com.example.konsi.mobil_computing_app;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 /**
  * Represents a smaller patient object for patients list display and not for saving into database
  */
+@Entity
 public class ListPatient {
 
+
     private int img;
+    @PrimaryKey
     private String ID;
-    private String fullname;
+    @ColumnInfo
+    private String name;
 
     public ListPatient(String id, String fullname, int img) {
         setID(id);
-        setFullname(fullname);
+        setName(fullname);
         setImg(img);
     }
 
@@ -52,14 +60,16 @@ public class ListPatient {
      * @return the fullname
      */
     public String getFullname() {
-        return fullname;
+        return name;
     }
 
     /**
      * set the fullname of a listpatient
-     * @param fullname the fullname
+     * @param name the fullname
      */
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setName(String name) {
+        this.name = name;
     }
 }
+
+
