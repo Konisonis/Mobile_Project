@@ -3,6 +3,9 @@ package com.example.konsi.mobil_computing_app;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -64,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -323,7 +327,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             }
 
-            // TODO: register the new account here.
+            // TODO: register the new account here. you can not register yourself only login
             return true;
         }
 
@@ -333,6 +337,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("Username", mEmail); //TODO get username from Database object instead of e mail
+                editor.commit();
+
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
