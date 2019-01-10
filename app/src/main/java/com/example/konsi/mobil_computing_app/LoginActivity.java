@@ -68,6 +68,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //Insert dummy Data into Database TODO
+        AppDatabase db = AppDatabase.getAppDatabase(this);
+        db.patientDao().insert(new Patient("123",1,"Hanns","Jürgen","01.01.2019","peter@web.de","abcde123","321"));
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.

@@ -1,27 +1,45 @@
 package com.example.konsi.mobil_computing_app;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 
 /**
  * Represents a patient for display and later Database implementation
  */
+@Entity
 public class Patient {
 
 
     private int img;
 
-    private String ID;
+    @PrimaryKey
+    @NonNull
+    private String id;
+    @ColumnInfo
     private String forname;
+    @ColumnInfo
     private String lastname;
+    @ColumnInfo
     private String fullname;
+    @ColumnInfo
     private String birthdate;
+    @ColumnInfo
     private String email;
+    @ColumnInfo
     private String password;
+    @ColumnInfo
     private String correspondingDoctorID;
+    //TODO no Lists allowed
+    @Ignore
     private ArrayList<String> devices;
 
-    public Patient(String id, int img, String forname, String lastname, String birthdate, String email, String password, String doctorID) {
-        setID(id);
+    public Patient(String id, int img, String forname, String lastname, String birthdate, String email, String password, String correspondingDoctorID) {
+        setId(id);
         setImg(img);
         setForname(forname);
         setLastname(lastname);
@@ -29,27 +47,29 @@ public class Patient {
         setBirthdate(birthdate);
         setEmail(email);
         setPassword(password);
-        setDoctor(doctorID);
+        setCorrespondingDoctorID(correspondingDoctorID);
+        /*
         this.devices = new ArrayList<>();
         this.devices.add("Heartbeat");
         this.devices.add("Bloodpressure");
         this.devices.add("Steps");
+        */
     }
 
     /**
      * returns the id of a patient
      * @return the ID
      */
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
     /**
      * sets the id of a patient
      * @param ID the new ID
      */
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -168,7 +188,7 @@ public class Patient {
      * sets the doctor id
      * @param doctorid the doctor id
      */
-    public void setDoctor(String doctorid) {
+    public void setCorrespondingDoctorID(String doctorid) {
         this.correspondingDoctorID = doctorid;
     }
 
@@ -176,7 +196,7 @@ public class Patient {
      * returns the doctor id operating the patient
      * @return the doctor id
      */
-    public String getDoctorID() {
+    public String getCorrespondingDoctorID() {
         return this.correspondingDoctorID;
     }
 
@@ -186,6 +206,11 @@ public class Patient {
      */
     public ArrayList<String> getDevices() {
         return devices;
+    }
+
+
+    public void setDevices(ArrayList<String> devices){
+        this.devices = devices;
     }
 
 }

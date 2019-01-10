@@ -114,7 +114,7 @@ public class Doctor_Main_Page extends AppCompatActivity {
         fullnames = new ArrayList<>();
         for(Patient patient : patients) {
             images.add(patient.getImg());
-            ids.add(patient.getID());
+            ids.add(patient.getId());
             fullnames.add(patient.getFullname());
         }
 
@@ -189,7 +189,7 @@ public class Doctor_Main_Page extends AppCompatActivity {
                     patients.add(patty);
                     images.add(patty.getImg());
                     fullnames.add(patty.getFullname());
-                    ids.add(patty.getID());
+                    ids.add(patty.getId());
                     break;
             }
         }
@@ -245,7 +245,7 @@ public class Doctor_Main_Page extends AppCompatActivity {
                     intent.putExtra("patient_id", ids.get(position));
                     intent.putExtra("patient_name", patient_fullname.getText().toString());
                     for(Patient p : patients) {
-                        if (p.getID().equals(patient_id.getText().toString())) {
+                        if (p.getId().equals(patient_id.getText().toString())) {
                             intent.putExtra("patient_devices", p.getDevices());
                             break;
                         }

@@ -25,6 +25,9 @@ public interface DoctorDao {
     @Insert
     void insertAll(ListDoctor... listDoctors);
 
+    @Insert
+    void insert(ListDoctor doctor);
+
     @Delete
     void delete(ListDoctor listDoctors);
 }

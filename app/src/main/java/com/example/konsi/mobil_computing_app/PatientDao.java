@@ -10,21 +10,21 @@ import java.util.List;
 @Dao
 public interface PatientDao {
 
-    @Query("SELECT * FROM listpatient")
+    @Query("SELECT * FROM patient")
     List<ListPatient> getAll();
 
-    @Query("SELECT * FROM listpatient WHERE id IN (:patientId)")
+    @Query("SELECT * FROM patient WHERE id IN (:patientId)")
     List<ListPatient> loadAllByIds(int[] patientId);
 
-    @Query("SELECT * FROM listpatient WHERE name LIKE :patientName")
-    ListPatient findByName(String patientName);
-
-    @Query("SELECT * FROM listpatient WHERE name LIKE :patientId")
-    ListPatient findByID(String patientId);
+    @Query("SELECT * FROM patient WHERE email LIKE :email")
+    ListPatient findByEmail(String email);
 
     @Insert
-    void insertAll(ListPatient... ListPatient);
+    void insertAll(Patient... Patient);
+
+    @Insert
+    void insert(Patient patient);
 
     @Delete
-    void delete(ListPatient listPatient);
+    void delete(Patient patient);
 }

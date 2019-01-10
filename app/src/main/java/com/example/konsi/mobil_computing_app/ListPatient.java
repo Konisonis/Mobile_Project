@@ -9,15 +9,12 @@ import android.support.annotation.NonNull;
 /**
  * Represents a smaller patient object for patients list display and not for saving into database
  */
-@Entity
 public class ListPatient {
 
 
 
-    @PrimaryKey
-    @NonNull
+
     private String id;
-    @ColumnInfo
     private String name;
     private int img;
 
