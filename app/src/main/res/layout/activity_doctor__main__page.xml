@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,111 +9,88 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:orientation="horizontal"
         android:background="@color/colorPrimary"
-        android:weightSum="2">
+        android:orientation="horizontal"
+        android:gravity="end">
 
-        <LinearLayout
-            android:id="@+id/addpatient_view"
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_gravity="start"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="horizontal"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:contentDescription="Add"
-                android:src="@drawable/plus"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:text="@string/addpatient"
-                android:gravity="center"
-                android:textSize="18dp"
-                android:textColor="@color/colorAccent" />
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/filtertable_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/roundbutton"
+            android:src="@drawable/filter" />
 
-        <LinearLayout
-            android:id="@+id/searchpatient_view"
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_gravity="end"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="horizontal"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:contentDescription="Search"
-                android:src="@drawable/magnify"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:text="@string/searchpatient"
-                android:gravity="center"
-                android:textSize="18dp"
-                android:textColor="@color/colorAccent" />
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/sorttable_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/roundbutton"
+            android:src="@drawable/sort" />
+
+        <ImageButton
+            android:id="@+id/addpatient_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/roundbutton"
+            android:src="@drawable/accountplus" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
-        android:weightSum="2"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:background="@color/colorPrimary">
 
-        <LinearLayout
-            android:id="@+id/sort_table_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/sorttabletext"
-                android:gravity="center"
-                android:textColor="@color/DefaultFontColor"
-                android:textSize="16sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/searchpatient"
+            android:textColor="@color/DefaultFontColor"
+            android:textSize="@dimen/editTextFontSize"
+            android:gravity="center"/>
 
+        <EditText
+            android:id="@+id/search_patient_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/searchpatient_hint"
+            android:autofillHints=""
+            android:inputType="text"
+            android:textColor="@color/DefaultFontColor"
+            android:textSize="@dimen/editTextFontSize"
+            android:textColorHint="#cfcfcf"
+            android:background="@drawable/edittext_rounded"/>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/filter_table_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/filtertabletext"
-                android:gravity="center"
-                android:textColor="@color/DefaultFontColor"
-                android:textSize="16sp"/>
-
-
-        </LinearLayout>
-
-
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginLeft="64dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginRight="64dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center"
+            android:text="@string/searchpatientinlist"
+            android:textColor="@color/DefaultFontColor"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"/>
     </LinearLayout>
 
     <ScrollView
