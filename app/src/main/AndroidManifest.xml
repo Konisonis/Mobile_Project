@@ -23,19 +23,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" android:label="@string/app_name"
-            android:noHistory="true" android:excludeFromRecents="true">
-        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:noHistory="true" />
         <activity android:name=".Patient_Delete_Device" />
         <activity android:name=".Patient_Main_Page" />
         <activity android:name=".Patient_Messages" />
         <activity android:name=".Patient_Profile" />
         <activity android:name=".Patient_App_Info" />
-        <activity android:name=".Doctor_Main_Page" />
-        <activity android:name=".Doctor_Add_Patient" />
+        <activity android:name=".Doctor_Main_Page" android:exported="true" />
+        <activity android:name=".Doctor_Add_Patient" android:exported="true"/>
         <activity android:name=".Doctor_Detailed_Patient" />
         <activity android:name=".Patient_Measurements" />
-        <activity android:name=".Doctor_Add_Patient_Task"></activity>
+        <activity android:name=".Doctor_Add_Patient_Task" />
+        <activity android:name=".Doctor_Profile" />
+        <activity android:name=".Doctor_App_Info"></activity>
     </application>
 
 </manifest>
