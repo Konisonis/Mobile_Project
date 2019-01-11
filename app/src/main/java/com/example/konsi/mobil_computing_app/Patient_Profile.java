@@ -1,18 +1,33 @@
 package com.example.konsi.mobil_computing_app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 public class Patient_Profile extends AppCompatActivity {
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient__profile);
+
+        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+        TextView userName = findViewById(R.id.accountName);
+        TextView userId = findViewById(R.id.accountId);
+        TextView dob = findViewById(R.id.dob);
+        if(settings != null){
+            userId.setText(settings.getString("UserId", "Not Found"));
+            userName.setText(settings.getString("Fullname", "Not found"));
+            dob.setText(settings.getString("Dob", "N/A"));
+        }
     }
 
     @Override
@@ -54,5 +69,8 @@ public class Patient_Profile extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void onClick(View view){
+        Log.d(TAG, "Password changed ");
     }
 }

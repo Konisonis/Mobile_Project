@@ -362,7 +362,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                /*
                 SharedPreferences settings = getSharedPreferences("UserInfo", 0);
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putString("Username", mEmail); //TODO get username from Database object instead of e mail
+                editor.putString("Username", mEmail);//TODO get username from Database object instead of e mail
+                editor.putString("Fullname", mEmail);//TODO get full name of user instead of email
+                editor.putString("UserId", mEmail);//TODO get id of user instead of email
+                editor.putString("Dob", "20.1.2019");//TODO get real DOB instead of hardcode string
                 editor.commit();
                 */
 
