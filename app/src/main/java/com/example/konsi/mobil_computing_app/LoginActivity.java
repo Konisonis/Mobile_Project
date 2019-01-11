@@ -76,8 +76,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         this.db = db;
 
 
-        //Insert dummy Data into Database TODO
-        db.patientDao().insert(new Patient("123",1,"Hanns","Jürgen","01.01.2019","peter@web.de","abcde123","321"));
+        //Insert dummy Data into Database TODO don't do this on the main thread
+        try{
+            db.patientDao().deleteAll();
+            db.patientDao().insert(new Patient("123",1,"Hanns","Jürgen","01.01.2019","hanns@web.de","abcde123","321"));
+            db.patientDao().insert(new Patient("456",1,"Peter","Jürgen","01.01.2019","peter@web.de","abcde123","321"));
+            db.patientDao().insert(new Patient("789",1,"Konsi","Jürgen","01.01.2019","konsi@web.de","abcde123","321"));
+            db.patientDao().insert(new Patient("109",1,"Ravell","Jürgen","01.01.2019","ravell@web.de","abcde123","321"));
+            db.patientDao().insert(new Patient("192",1,"Admin","Admin","01.01.2019","admin@web.de","admin123","321"));
+        }catch(Exception e){
+            Toast.makeText(this,"Database insertion eror",Toast.LENGTH_SHORT).show();
+        }
+
+
 
 
 
@@ -328,25 +339,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try {
                 // Simulate network access.
-                Patient patient = db.patientDao().findByEmail("peter@web.de");
-                return patient.getPassword().equals(mPassword);
+                Thread.sleep(2000);
+                Patient patient = db.patientDao().findByEmail(mEmail);
+                if(patient != null){
+                    return patient.getPassword().equals(mPassword);
+                }
 
-
+            //Login was not successfull
             } catch (Exception e) {
                 return false;
             }
 
-            /*
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-            */
-
-            // TODO: register the new account here. you can not register yourself only login
+            return false;
         }
 
         @Override
