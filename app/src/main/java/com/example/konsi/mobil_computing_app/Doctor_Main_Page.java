@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -82,11 +83,6 @@ public class Doctor_Main_Page extends AppCompatActivity {
         createDummyListData();
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.doctor_menu, menu);
-        return true;
-    }
 
     /**
      * Creates some dummy patient_list data till database functionality is implemented
@@ -254,6 +250,41 @@ public class Doctor_Main_Page extends AppCompatActivity {
                 }
             });
             return patient_row;
+        }
+    }
+
+    //MENU-------------------------------
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.doctor_menu, menu);
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent profileIntent = new Intent(this, Doctor_Profile.class);
+        Intent infoIntent = new Intent(this, Doctor_App_Info.class);
+        Intent logoutIntent = new Intent(this, LoginActivity.class);
+        //logout ?
+
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.profile_doctor:
+                startActivity(profileIntent);
+                return true;
+            case R.id.app_info:
+                startActivity(infoIntent);
+                return true;
+            case R.id.log_out:
+                finish();
+                startActivity(logoutIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

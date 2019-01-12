@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -70,6 +73,40 @@ public class Doctor_Add_Patient extends AppCompatActivity {
             }
         });
     }
+    //MENU-------------------------------
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.doctor_menu, menu);
+        return true;
+    }
 
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent profileIntent = new Intent(this, Doctor_Profile.class);
+        Intent infoIntent = new Intent(this, Doctor_App_Info.class);
+        Intent logoutIntent = new Intent(this, LoginActivity.class);
+        //logout ?
+
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.profile_doctor:
+                startActivity(profileIntent);
+                return true;
+            case R.id.app_info:
+                startActivity(infoIntent);
+                return true;
+            case R.id.log_out:
+
+                finish();
+                startActivity(logoutIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }
