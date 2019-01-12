@@ -3,6 +3,9 @@ package com.example.konsi.mobil_computing_app;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -68,14 +71,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     //Dummy Database
-    private AppDatabase db;
+    //private AppDatabase db;
+    LoginViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
-        AppDatabase db = AppDatabase.getDatabase(this);
-        this.db = db;
+        //AppDatabase db = AppDatabase.getDatabase(this);
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
 
         super.onCreate(savedInstanceState);
@@ -331,7 +336,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
-                Patient patient = db.patientDao().findByEmail(mEmail);
+                //Patient patient = db.patientDao().findByEmail(mEmail);
+                Patient patient = viewModel.getPatient(mEmail);
                 if(patient != null){
                     Log.d("Creation","The patient exists");
                     Log.d("Creation","PW: "+patient.getPassword()+" enetered PW: "+mPassword);
@@ -342,7 +348,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         return true;
                     }
                 }else {
-                    Doctor doctor = db.doctorDao().findByEMail(mEmail);
+                    //Doctor doctor = db.doctorDao().findByEMail(mEmail);
+                    Doctor doctor = viewModel.getDoctor(mEmail);
                     if (doctor != null) {
                         if (doctor.getPassword().equals(mPassword)) {
                             mDoctor = doctor;
