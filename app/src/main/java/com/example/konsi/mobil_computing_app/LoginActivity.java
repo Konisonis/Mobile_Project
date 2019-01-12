@@ -33,6 +33,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -313,6 +315,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         //Decide if login is fo patient or doctor
         private  boolean isPatient = false;
+        private Patient mPatient;
+        private Doctor mDoctor;
 
         UserLoginTask(String email, String password) {
 
@@ -333,15 +337,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Log.d("Creation","PW: "+patient.getPassword()+" enetered PW: "+mPassword);
 
                     if(patient.getPassword().equals(mPassword)){
+                        mPatient = patient;
                         isPatient = true;
                         return true;
                     }
                 }else {
-                    Log.d("Creation","Try to find doctor");
                     Doctor doctor = db.doctorDao().findByEMail(mEmail);
                     if (doctor != null) {
-                        Log.d("Creation","Doctor exists");
                         if (doctor.getPassword().equals(mPassword)) {
+                            mDoctor = doctor;
                             return true;
                         }
                     }
@@ -371,12 +375,37 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 editor.putString("Dob", "20.1.2019");//TODO get real DOB instead of hardcode string
                 editor.commit();
                 */
+                SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+                Gson gson = new Gson();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
 
                 if(isPatient){
+
+                    //save object as Json String in sharedPreferences
+                    String jsonObject = gson.toJson(mPatient);
+                    editor.putString("Patient", jsonObject);
+                    editor.commit();
+
+                    /*Retrive data somewhere ele in the app
+                    *Gson gson = new Gson();
+                     String json = mPrefs.getString("Patient", "");
+                     Patient obj = gson.fromJson(json, Patient.class);
+                    *
+                    *
+                    * */
+
+                    //start patient intent
                     Intent patientIntent = new Intent(LoginActivity.this,Patient_Devices_List.class);
                     patientIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     LoginActivity.this.startActivity(patientIntent);
                 }else{
+
+                    //save object as Json String in sharedPreferences
+                    String jsonObject = gson.toJson(mDoctor);
+                    editor.putString("Doctor", jsonObject);
+                    editor.commit();
+
+                    //start doctor intent
                     Intent doctorIntent = new Intent(LoginActivity.this,Doctor_Main_Page.class);
                     LoginActivity.this.startActivity(doctorIntent);
                 }
