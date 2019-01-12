@@ -21,8 +21,6 @@ public class Patient_Devices_List extends AppCompatActivity {
         final String[] items = new String[] {"Device1", "Device2", "Device3", "Device4"};
         final Intent intent = new Intent(this, Patient_Main_Page.class);
 
-        startActivity(new Intent(this,LoginActivity.class));
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient__devices__list);

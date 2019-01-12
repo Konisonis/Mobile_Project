@@ -35,5 +35,6 @@
         <item>Steps</item>
         <item>Temperature</item>
     </string-array>
+    <string name="title_activity_login_forwarding">LoginForwardingActivity</string>
 
 </resources>

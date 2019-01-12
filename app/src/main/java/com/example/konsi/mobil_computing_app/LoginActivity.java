@@ -22,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,7 +32,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,24 +72,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
 
 
-        AppDatabase db = AppDatabase.getAppDatabase(this);
+        AppDatabase db = AppDatabase.getDatabase(this);
         this.db = db;
-
-
-        //Insert dummy Data into Database TODO don't do this on the main thread
-        try{
-            db.patientDao().deleteAll();
-            db.patientDao().insert(new Patient("123",1,"Hanns","Jürgen","01.01.2019","hanns@web.de","abcde123","321"));
-            db.patientDao().insert(new Patient("456",1,"Peter","Jürgen","01.01.2019","peter@web.de","abcde123","321"));
-            db.patientDao().insert(new Patient("789",1,"Konsi","Jürgen","01.01.2019","konsi@web.de","abcde123","321"));
-            db.patientDao().insert(new Patient("109",1,"Ravell","Jürgen","01.01.2019","ravell@web.de","abcde123","321"));
-            db.patientDao().insert(new Patient("192",1,"Admin","Admin","01.01.2019","admin@web.de","admin123","321"));
-        }catch(Exception e){
-            Toast.makeText(this,"Database insertion eror",Toast.LENGTH_SHORT).show();
-        }
-
-
-
 
 
         super.onCreate(savedInstanceState);
@@ -327,6 +311,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mEmail;
         private final String mPassword;
 
+        //Decide if login is fo patient or doctor
+        private  boolean isPatient = false;
+
         UserLoginTask(String email, String password) {
 
             mEmail = email;
@@ -342,14 +329,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Thread.sleep(2000);
                 Patient patient = db.patientDao().findByEmail(mEmail);
                 if(patient != null){
-                    return patient.getPassword().equals(mPassword);
+                    Log.d("Creation","The patient exists");
+                    Log.d("Creation","PW: "+patient.getPassword()+" enetered PW: "+mPassword);
+
+                    if(patient.getPassword().equals(mPassword)){
+                        isPatient = true;
+                        return true;
+                    }
+                }else {
+                    Log.d("Creation","Try to find doctor");
+                    Doctor doctor = db.doctorDao().findByEMail(mEmail);
+                    if (doctor != null) {
+                        Log.d("Creation","Doctor exists");
+                        if (doctor.getPassword().equals(mPassword)) {
+                            return true;
+                        }
+                    }
                 }
 
             //Login was not successfull
             } catch (Exception e) {
+                Log.d("Creation","Exception");
                 return false;
             }
-
+            Log.d("Creation","User does not exist");
             return false;
         }
 
@@ -369,7 +372,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 editor.commit();
                 */
 
-                finish();
+                if(isPatient){
+                    Intent patientIntent = new Intent(LoginActivity.this,Patient_Devices_List.class);
+                    patientIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    LoginActivity.this.startActivity(patientIntent);
+                }else{
+                    Intent doctorIntent = new Intent(LoginActivity.this,Doctor_Main_Page.class);
+                    LoginActivity.this.startActivity(doctorIntent);
+                }
+
+                LoginActivity.this.finish();
+
+
+
+
+
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
