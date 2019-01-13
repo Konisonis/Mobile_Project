@@ -71,7 +71,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     //Dummy Database
-    //private AppDatabase db;
     PatientAndDoctorViewModel viewModel;
 
 
@@ -79,9 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
 
 
-        //AppDatabase db = AppDatabase.getDatabase(this);
         viewModel = ViewModelProviders.of(this).get(PatientAndDoctorViewModel.class);
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -382,9 +379,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 editor.putString("Dob", "20.1.2019");//TODO get real DOB instead of hardcode string
                 editor.commit();
                 */
-                SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("sharedPref", Context.MODE_PRIVATE);
                 Gson gson = new Gson();
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+                SharedPreferences.Editor editor = sharedPref.edit();
 
                 if(isPatient){
 
@@ -392,6 +389,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     String jsonObject = gson.toJson(mPatient);
                     editor.putString("Patient", jsonObject);
                     editor.commit();
+                    editor.apply();
 
                     /*Retrive data somewhere ele in the app
                     *Gson gson = new Gson();
@@ -411,10 +409,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     String jsonObject = gson.toJson(mDoctor);
                     editor.putString("Doctor", jsonObject);
                     editor.commit();
+                    editor.apply();
 
                     //start doctor intent
                     Intent doctorIntent = new Intent(LoginActivity.this,Doctor_Main_Page.class);
                     LoginActivity.this.startActivity(doctorIntent);
+
+                    Log.d("LOGIN_SAVING_DOCTOR", "Successfully saved Doctor");
                 }
 
                 LoginActivity.this.finish();

@@ -12,6 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Doctor_Detailed_Patient extends AppCompatActivity {
 
     private TextView patient_name;
@@ -31,19 +35,23 @@ public class Doctor_Detailed_Patient extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         String patientID = extras.getString("patient_id");
         String patientName = extras.getString("patient_name");
-        String[] patientDevices = extras.getStringArray("patient_devices");
 
-        // Create adapter for array items
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, patientDevices);
-        patient_devices.setAdapter(itemsAdapter);
-        // Give every item a click listener to route to detailsview
-        patient_devices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // go to the detailed device view with graphs and history data
-                // take the patientID for database query
-            }
-        });
+        // Add devices of a patient to display
+        String[] devices = new String[] {
+                "Heartratio",
+                "Bloodpressure",
+                "Steps"
+        };
+
+        // Create a List from String Array elements
+        final List<String> devices_list = new ArrayList<String>(Arrays.asList(devices));
+
+        // Create an ArrayAdapter from List
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, devices_list);
+
+        // DataBind ListView with items from ArrayAdapter
+        patient_devices.setAdapter(arrayAdapter);
 
         patient_name.setText(patientName);
     }

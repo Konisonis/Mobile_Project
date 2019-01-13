@@ -104,38 +104,38 @@ public class Doctor_Add_Patient_Task extends AppCompatActivity implements DatePi
      * Initializes the on click handling for all date fields and buttons
      */
     private void initializeOnClickHandling() {
-        from_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                positionClicked = 0;
-                DialogFragment dialog = new DatePickerFragment();
-                dialog.show(getSupportFragmentManager(), "from");
-            }
-        });
-        to_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                positionClicked = 1;
-                DialogFragment dialog = new DatePickerFragment();
-                dialog.show(getSupportFragmentManager(), "to");
-            }
-        });
-        start_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                positionClicked = 2;
-                DialogFragment dialog = new DatePickerFragment();
-                dialog.show(getSupportFragmentManager(), "start");
-            }
-        });
-        addtask_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create new task
-                // Task task = new Task ...
-                // Go back to Patient_Overview
-            }
-        });
+//        from_date.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                positionClicked = 0;
+//                DialogFragment dialog = new MyDatePickerDialog();
+//                dialog.show(getSupportFragmentManager(), "from");
+//            }
+//        });
+//        to_date.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                positionClicked = 1;
+//                DialogFragment dialog = new MyDatePickerDialog();
+//                dialog.show(getSupportFragmentManager(), "to");
+//            }
+//        });
+//        start_date.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                positionClicked = 2;
+//                DialogFragment dialog = new MyDatePickerDialog();
+//                dialog.show(getSupportFragmentManager(), "start");
+//            }
+//        });
+//        addtask_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Create new task
+//                // Task task = new Task ...
+//                // Go back to Patient_Overview
+//            }
+//        });
     }
     //MENU-------------------------------
     @Override

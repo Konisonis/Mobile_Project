@@ -37,6 +37,7 @@ public class Doctor {
     public String getId(){
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -52,6 +53,7 @@ public class Doctor {
     public String getLastname(){
         return lastname;
     }
+
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
@@ -59,6 +61,7 @@ public class Doctor {
     public String getBirthdate(){
         return birthdate;
     }
+
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
@@ -66,12 +69,15 @@ public class Doctor {
     public void setEMail(String eMail){
         this.eMail = eMail;
     }
+
     public String getEMail(){
         return eMail;
     }
+
     public void setPassword(String password){
         this.password = password;
     }
+
     public String getPassword(){
         return password;
     }

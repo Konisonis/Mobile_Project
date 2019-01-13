@@ -1,9 +1,13 @@
 package com.example.konsi.mobil_computing_app;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -36,32 +43,35 @@ public class Doctor_Main_Page extends AppCompatActivity {
     private ArrayList<String> ids;
     private ArrayList<String> fullnames;
     protected ArrayList<Patient> patients;
+    protected ArrayList<Patient> filteredSortedPatients;
 
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) return;
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
-                View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0) view.setLayoutParams(new
-                    ViewGroup.LayoutParams(desiredWidth,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
+    private PatientAndDoctorViewModel patdocmodel;
 
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-
-        params.height = totalHeight + (listView.getDividerHeight() *
-                (listAdapter.getCount() - 1));
-
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }
+//    public static void setListViewHeightBasedOnChildren(ListView listView) {
+//        ListAdapter listAdapter = listView.getAdapter();
+//        if (listAdapter == null) return;
+//        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
+//                View.MeasureSpec.UNSPECIFIED);
+//        int totalHeight = 0;
+//        View view = null;
+//        for (int i = 0; i < listAdapter.getCount(); i++) {
+//            view = listAdapter.getView(i, view, listView);
+//            if (i == 0) view.setLayoutParams(new
+//                    ViewGroup.LayoutParams(desiredWidth,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT));
+//
+//            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+//            totalHeight += view.getMeasuredHeight();
+//        }
+//
+//        ViewGroup.LayoutParams params = listView.getLayoutParams();
+//
+//        params.height = totalHeight + (listView.getDividerHeight() *
+//                (listAdapter.getCount() - 1));
+//
+//        listView.setLayoutParams(params);
+//        listView.requestLayout();
+//    }
 
     /**
      * Gets called when the activity is created
@@ -72,52 +82,79 @@ public class Doctor_Main_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor__main__page);
 
+        // Initialize ViewModel for database access
+        patdocmodel = ViewModelProviders.of(this).get(PatientAndDoctorViewModel.class);
 
+        // SearchField
         search_patient_edittext = findViewById(R.id.search_patient_edittext);
+
+        // Buttons
         search_button = findViewById(R.id.search_button);
         addpatient_button = findViewById(R.id.addpatient_button);
         sorttable_button = findViewById(R.id.sorttable_button);
         filtertable_button = findViewById(R.id.filtertable_button);
+
+        // Patients_lists for display
         patients_list = findViewById(R.id.patients_list);
+
         initializeListOptionsClicks();
-        createDummyListData();
+        createPatientListData();
     }
 
 
     /**
      * Creates some dummy patient_list data till database functionality is implemented
      */
-    private void createDummyListData() {
-        Patient pat1 = new Patient("12345", R.drawable.ravell, "Ravell", "Heerdegen", "15.02.1993","ravell@heerdegen.com", "ravell123", "00000");
-        Patient pat2 = new Patient("98765", R.drawable.trang,"Trang", "Le", "23.04.1995","trang@le.com", "trang123", "00000");
-        Patient pat3 = new Patient("34567", R.drawable.konstantin,"Konstantin", "Rosenberg", "23.04.1995","konstantin@rosenberg.com", "konst123", "00000");
-        Patient pat4 = new Patient("76543", R.drawable.jan,"Jan", "Pohl", "23.04.1990","jan@pohl.com", "jan123", "00000");
-        Patient pat5 = new Patient("23456", R.drawable.robin,"Robin", "Schramm", "23.04.1992","robin@schramm.com", "robin123", "00000");
-        Patient pat6 = new Patient("54673", R.drawable.ioan,"Ioan", "Maftei", "23.04.1991","ioan@maftei.com", "ioan123", "00000");
-        Patient pat7 = new Patient("12345", R.drawable.maximilian,"Maximilian", "Waiblinger", "23.04.1994","maximilian@waiblinger.com", "max123", "00000");
+    private void createPatientListData() {
 
-        // Create the dummy patients which are smaller datasets for display
+
         this.patients = new ArrayList<Patient>();
-        patients.add(pat1);
-        patients.add(pat2);
-        patients.add(pat3);
-        patients.add(pat4);
-        patients.add(pat5);
-        patients.add(pat6);
-        patients.add(pat7);
+        filteredSortedPatients = new ArrayList<Patient>();
+
+        // Get the dummy patients for display
+        Context context = getApplicationContext();
+        SharedPreferences sharedPref = context.getSharedPreferences("sharedPref", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPref.getString("Doctor", "");
+        Doctor doc = gson.fromJson(json, Doctor.class);
+        if (doc == null) {
+            Log.e("DOC ERROR:", "Doctor is null");
+        }
+
+        this.patients = (ArrayList) patdocmodel.getAllPatientsByDoctorId(doc.getId());
+
+        Log.d("READ_PATIENTS_FROM_DB", "Everything okay");
+
         images = new ArrayList<>();
         ids = new ArrayList<>();
         fullnames = new ArrayList<>();
-        for(Patient patient : patients) {
-            images.add(patient.getImg());
+        for(Patient patient : this.patients) {
+            int imageReference;
+            try {
+                Log.e("IMAGEREFERENCE:", patient.getForname().toLowerCase());
+                imageReference = getResources().
+                        getIdentifier(patient.getForname().
+                                toLowerCase(),"drawable", getPackageName());
+                Log.e("IMAGEREFERENCE:", ""+imageReference);
+                if (imageReference != 0) {
+                } else {
+                    imageReference = R.drawable.jan;
+                }
+            } catch (Resources.NotFoundException e) {
+                imageReference = R.drawable.jan;
+            }
+            images.add(imageReference);
             ids.add(patient.getId());
             fullnames.add(patient.getFullname());
         }
 
+        Log.e("WICHTIG WICHTIG", ""+images.size());
+        Log.e("WICHTIG WICHTIG", images.toString());
+
         // Set the adapter for the patients data
         PatientsAdapter patientsAdapter = new PatientsAdapter(this, images, fullnames, ids);
         patients_list.setAdapter(patientsAdapter);
-        Doctor_Main_Page.setListViewHeightBasedOnChildren(patients_list);
+        // Doctor_Main_Page.setListViewHeightBasedOnChildren(patients_list);
     }
 
     /**
@@ -139,11 +176,11 @@ public class Doctor_Main_Page extends AppCompatActivity {
                 String searchtext = search_patient_edittext.getText().toString();
                 // Check for five numbers in a row
                 if (searchtext.matches("[0-9]{5}")) {
-                    // its the ID
+                    // its the ID - look in the patients_list
                 } else if(searchtext.matches("[a-zA-Z]{2,} ?[a-zA-Z]*")) {
-                    // its the name
+                    // its the name - look in the patients_list
                 } else {
-                    // its the date of birth
+                    // its the date of birth - look in the patients_list
                 }
             }
         });
@@ -171,6 +208,11 @@ public class Doctor_Main_Page extends AppCompatActivity {
      */
     @Override
     public void onActivityResult(int requestcode, int resultcode, Intent intent) {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPref = context.getSharedPreferences("sharedPref", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPref.getString("Doctor", "");
+        Doctor doc = gson.fromJson(json, Doctor.class);
         if (resultcode == RESULT_OK) {
             switch (requestcode) {
                 case 0:
@@ -181,11 +223,23 @@ public class Doctor_Main_Page extends AppCompatActivity {
                     String birthdate = intent.getStringExtra("birthdate");
                     String password = intent.getStringExtra("password");
                     Patient patty = new Patient(id, R.drawable.jan, forname, lastname, birthdate, forname.toLowerCase() +
-                            "@" + lastname.toLowerCase() + ".com", password, "00000");
-                    patients.add(patty);
-                    images.add(patty.getImg());
-                    fullnames.add(patty.getFullname());
-                    ids.add(patty.getId());
+                            "@" + lastname.toLowerCase() + ".com", password, doc.getId());
+
+                    try {
+                        patdocmodel.insertPatientToDb(patty);
+                        Log.d("DATABASE_LOG:", "Saved Patient to Database successfully");
+                        patients.add(patty);
+                        images.add(patty.getImg());
+                        fullnames.add(patty.getFullname());
+                        ids.add(patty.getId());
+                        Toast.makeText(Doctor_Main_Page.this, "Successfully added patient to list", Toast.LENGTH_LONG).show();
+
+                        createPatientListData();
+                    } catch(Exception e) {
+                        Log.e("InsertToDB", "Error saving patient to Database");
+                        e.printStackTrace();
+                        Toast.makeText(Doctor_Main_Page.this, "Error at adding patient to list", Toast.LENGTH_LONG).show();
+                    }
                     break;
             }
         }
@@ -227,10 +281,12 @@ public class Doctor_Main_Page extends AppCompatActivity {
         public View getView(final int position, View convertView, ViewGroup parent) {
             LayoutInflater layoutinflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View patient_row = layoutinflater.inflate(R.layout.patient_row, parent, false);
-            ImageView profile_picture = findViewById(R.id.patient_picture);
-            final TextView patient_id = findViewById(R.id.patient_id);
-            final TextView patient_fullname = findViewById(R.id.patient_fullname);
+            final ImageView profile_picture = patient_row.findViewById(R.id.patient_picture);
+            final TextView patient_id = patient_row.findViewById(R.id.patient_id);
+            final TextView patient_fullname = patient_row.findViewById(R.id.patient_fullname);
+
             profile_picture.setImageResource(images.get(position));
+
             patient_id.setText(ids.get(position));
             patient_fullname.setText(fullnames.get(position));
             patient_row.setOnClickListener(new View.OnClickListener() {
@@ -239,13 +295,7 @@ public class Doctor_Main_Page extends AppCompatActivity {
                     // if clicked, route to detailed patient view, listing the devices of a user to choose for details
                     Intent intent = new Intent(Doctor_Main_Page.this, Doctor_Detailed_Patient.class);
                     intent.putExtra("patient_id", ids.get(position));
-                    intent.putExtra("patient_name", patient_fullname.getText().toString());
-                    for(Patient p : patients) {
-                        if (p.getId().equals(patient_id.getText().toString())) {
-                            intent.putExtra("patient_devices", p.getDevices());
-                            break;
-                        }
-                    }
+                    intent.putExtra("patient_name", fullnames.get(position));
                     startActivity(intent);
                 }
             });

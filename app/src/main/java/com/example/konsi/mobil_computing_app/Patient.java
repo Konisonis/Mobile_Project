@@ -48,12 +48,6 @@ public class Patient {
         setEmail(email);
         setPassword(password);
         setCorrespondingDoctorID(correspondingDoctorID);
-        /*
-        this.devices = new ArrayList<>();
-        this.devices.add("Heartbeat");
-        this.devices.add("Bloodpressure");
-        this.devices.add("Steps");
-        */
     }
 
     /**

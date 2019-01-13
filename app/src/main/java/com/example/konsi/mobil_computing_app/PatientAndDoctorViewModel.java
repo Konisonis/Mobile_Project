@@ -16,6 +16,9 @@ public class PatientAndDoctorViewModel extends AndroidViewModel {
         db = AppDatabase.getDatabase(application);
     }
 
+    public void insertPatientToDb(Patient patient) {
+            db.patientDao().insert(patient);
+    }
 
     public List<Patient> getAllPatientsByDoctorId(String doctorId){
             return db.patientDao().findAllByDoctor(doctorId);

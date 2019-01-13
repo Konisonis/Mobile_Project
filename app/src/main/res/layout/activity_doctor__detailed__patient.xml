@@ -16,22 +16,25 @@
         android:background="@color/colorPrimaryDark"
         android:textSize="18sp"/>
 
-    <ScrollView
+    <ListView
+        android:id="@+id/patient_devices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ListView
-            android:id="@+id/patient_devices"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </ListView>
-
-    </ScrollView>
+    </ListView>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginRight="72dp"
+        android:layout_marginEnd="72dp"
         android:text="Add task"
         android:background="@color/colorPrimaryDark"
+        android:textColor="@color/DefaultFontColor"
+        android:gravity="center"
+        android:layout_gravity="center"
         />
 
 </LinearLayout>
