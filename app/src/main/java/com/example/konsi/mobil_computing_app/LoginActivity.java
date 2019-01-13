@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     //Dummy Database
     //private AppDatabase db;
-    LoginViewModel viewModel;
+    PatientAndDoctorViewModel viewModel;
 
 
     @Override
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
         //AppDatabase db = AppDatabase.getDatabase(this);
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(PatientAndDoctorViewModel.class);
 
 
         super.onCreate(savedInstanceState);
@@ -337,7 +337,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // Simulate network access.
                 Thread.sleep(2000);
                 //Patient patient = db.patientDao().findByEmail(mEmail);
-                Patient patient = viewModel.getPatient(mEmail);
+                Patient patient = viewModel.getPatientByEmail(mEmail);
                 if(patient != null){
                     Log.d("Creation","The patient exists");
                     Log.d("Creation","PW: "+patient.getPassword()+" enetered PW: "+mPassword);
@@ -349,7 +349,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 }else {
                     //Doctor doctor = db.doctorDao().findByEMail(mEmail);
-                    Doctor doctor = viewModel.getDoctor(mEmail);
+                    Doctor doctor = viewModel.getDoctorByEmail(mEmail);
                     if (doctor != null) {
                         if (doctor.getPassword().equals(mPassword)) {
                             mDoctor = doctor;
