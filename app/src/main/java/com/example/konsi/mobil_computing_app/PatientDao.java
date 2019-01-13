@@ -20,7 +20,7 @@ public interface PatientDao {
     Patient findByEmail(String email);
 
     @Query("SELECT * FROM patient WHERE correspondingDoctorID LIKE :doctorId")
-    List<Patient> findAllByDocotr(String doctorId);
+    List<Patient> findAllByDoctor(String doctorId);
 
     @Insert
     void insertAll(Patient... Patient);

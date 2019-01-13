@@ -18,7 +18,7 @@ public class PatientAndDoctorViewModel extends AndroidViewModel {
 
 
     public List<Patient> getAllPatientsByDoctorId(String doctorId){
-            return db.patientDao().findAllByDocotr(doctorId);
+            return db.patientDao().findAllByDoctor(doctorId);
     }
 
     public Patient getPatientById(String id){
