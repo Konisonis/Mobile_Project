@@ -18,6 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Patient_Profile extends AppCompatActivity {
     private static final String TAG = "MyActivity";
     PopupWindow popUp;
@@ -33,14 +38,22 @@ public class Patient_Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient__profile);
 
-        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+        SharedPreferences settings = getSharedPreferences("sharedPref", 0);
         TextView userName = findViewById(R.id.accountName);
         TextView userId = findViewById(R.id.accountId);
         TextView dob = findViewById(R.id.dob);
         if(settings != null){
-            userId.setText(settings.getString("UserId", "Not Found"));
-            userName.setText(settings.getString("Fullname", "Not found"));
-            dob.setText(settings.getString("Dob", "N/A"));
+            String patient = settings.getString("Patient", "Not Found");
+            Log.d(TAG, patient);
+            try{
+                JSONObject patientJson = new JSONObject(patient);
+                userId.setText(patientJson.getString("id"));
+                userName.setText(patientJson.getString("fullname"));
+                dob.setText(patientJson.getString("birthdate")); 
+
+            } catch (JSONException e) {
+                       throw new RuntimeException(e);
+            }
         }
 
         popUp = new PopupWindow(this);

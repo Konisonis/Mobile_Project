@@ -9,6 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Doctor_Profile extends AppCompatActivity {
 
     @Override
@@ -16,14 +19,21 @@ public class Doctor_Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor__profile);
 
-        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+        SharedPreferences settings = getSharedPreferences("sharedPref", 0);
         TextView userName = findViewById(R.id.accountName);
         TextView userId = findViewById(R.id.accountId);
         TextView dob = findViewById(R.id.dob);
         if(settings != null){
-            userId.setText(settings.getString("UserId", "Not Found"));
-            userName.setText(settings.getString("Fullname", "Not found"));
-            dob.setText(settings.getString("Dob", "N/A"));
+            String doctor = settings.getString("Doctor", "Not Found");
+            try{
+                JSONObject doctorJson = new JSONObject(doctor);
+                userId.setText(doctorJson.getString("id"));
+                userName.setText(doctorJson.getString("forname") + " " +doctorJson.getString("lastname") );
+                dob.setText(doctorJson.getString("birthdate"));
+
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
