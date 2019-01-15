@@ -51,6 +51,7 @@ public class Doctor_App_Info extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Intent mainpageIntent = new Intent(this, Doctor_Main_Page.class);
         Intent profileIntent = new Intent(this, Doctor_Profile.class);
         Intent infoIntent = new Intent(this, Doctor_App_Info.class);
         Intent logoutIntent = new Intent(this, LoginActivity.class);
@@ -58,11 +59,11 @@ public class Doctor_App_Info extends AppCompatActivity {
 
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.doctor_main_page:
+                startActivity(mainpageIntent);
+                return true;
             case R.id.profile_doctor:
                 startActivity(profileIntent);
-                return true;
-            case R.id.app_info:
-                startActivity(infoIntent);
                 return true;
             case R.id.log_out:
                 finish();

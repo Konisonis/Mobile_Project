@@ -3,12 +3,14 @@ package com.example.konsi.mobil_computing_app;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +23,9 @@ public class Doctor_Detailed_Patient extends AppCompatActivity {
     private TextView patient_name;
     private ListView patient_devices;
 
+    private Button addtask_button;
+    private Button addmessage_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +34,8 @@ public class Doctor_Detailed_Patient extends AppCompatActivity {
         // Initialize views
         patient_name = findViewById(R.id.patient_name);
         patient_devices = findViewById(R.id.patient_devices);
+        addtask_button = findViewById(R.id.addtask_button);
+        addmessage_button = findViewById(R.id.addmessage_button);
 
         // Get extras from the intent
         Intent intent = getIntent();
@@ -54,7 +61,41 @@ public class Doctor_Detailed_Patient extends AppCompatActivity {
         patient_devices.setAdapter(arrayAdapter);
 
         patient_name.setText(patientName);
+
+        //Initialize button event click handling
+        initializeButtonEventHandling();
     }
+
+    private void initializeButtonEventHandling() {
+        addtask_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Doctor_Detailed_Patient.this, Doctor_Add_Patient_Task.class);
+                startActivity(intent);
+            }
+        });
+        addmessage_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Doctor_Detailed_Patient.this, Doctor_Add_Patient_Message.class);
+                startActivity(intent);
+            }
+        });
+        patient_devices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    String devicename = (String) patient_devices.getAdapter().getItem(position);
+                    Intent intent = new Intent(Doctor_Detailed_Patient.this, Doctor_Patient_Measurements.class);
+                    intent.putExtra("devicename", devicename);
+                    startActivity(intent);
+                } catch( Exception e) {
+                    Log.e("DETAILED_PATIENT_ERROR:", "Devicename failure in starting patient measurement view");
+                }
+            }
+        });
+    }
+
     //MENU-------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,11 +104,10 @@ public class Doctor_Detailed_Patient extends AppCompatActivity {
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Intent mainpageIntent = new Intent(this, Doctor_Main_Page.class);
         Intent profileIntent = new Intent(this, Doctor_Profile.class);
         Intent infoIntent = new Intent(this, Doctor_App_Info.class);
         Intent logoutIntent = new Intent(this, LoginActivity.class);
@@ -75,6 +115,9 @@ public class Doctor_Detailed_Patient extends AppCompatActivity {
 
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.doctor_main_page:
+                startActivity(mainpageIntent);
+                return true;
             case R.id.profile_doctor:
                 startActivity(profileIntent);
                 return true;

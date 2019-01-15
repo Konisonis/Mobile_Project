@@ -1,5 +1,6 @@
 package com.example.konsi.mobil_computing_app;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
@@ -19,16 +20,20 @@ import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class Doctor_Add_Patient_Task extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
 
     private EditText from_date;
     private EditText to_date;
-    private EditText start_date;
+//    private EditText start_date;
     private int positionClicked;
     private EditText[] date_fields;
     private Button addtask_button;
-    private Spinner spinner;
+
+    private int _day;
+    private int _month;
+    private int _year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,25 +42,17 @@ public class Doctor_Add_Patient_Task extends AppCompatActivity implements DatePi
 
         from_date = findViewById(R.id.from_date);
         to_date = findViewById(R.id.to_date);
-        start_date = findViewById(R.id.start_date);
+//        start_date = findViewById(R.id.start_date);
         addtask_button = findViewById(R.id.addtask_button);
         date_fields = new EditText[3];
         date_fields[0] = from_date;
         date_fields[1] = to_date;
-        date_fields[2] = start_date;
 
         String[] list = getResources().getStringArray(R.array.taskoptions);
 
-        spinner = (Spinner) findViewById(R.id.task_spinner);
-        // Create an ArrayAdapter using the string array and a spinner layout
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, list);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-        // Set default selected value
-        spinner.setSelection(0);
 
         initializeOnClickHandling();
+
 
     }
 
@@ -68,14 +65,14 @@ public class Doctor_Add_Patient_Task extends AppCompatActivity implements DatePi
      */
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDateString = DateFormat.getDateInstance().format(calendar.getTime());
+        _year = year;
+        _month = month;
+        _day = dayOfMonth;
 
         // Choose on which edittext to show
-        date_fields[positionClicked].setText(currentDateString);
+        date_fields[positionClicked].setText(new StringBuilder()
+                // Month is 0 based so add 1
+                .append(_day).append(".").append(_month + 1).append(".").append(_year).append(""));
     }
 
     /**
@@ -100,43 +97,52 @@ public class Doctor_Add_Patient_Task extends AppCompatActivity implements DatePi
 
     }
 
-    /**
-     * Initializes the on click handling for all date fields and buttons
-     */
-    private void initializeOnClickHandling() {
-//        from_date.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                positionClicked = 0;
-//                DialogFragment dialog = new MyDatePickerDialog();
-//                dialog.show(getSupportFragmentManager(), "from");
-//            }
-//        });
-//        to_date.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                positionClicked = 1;
-//                DialogFragment dialog = new MyDatePickerDialog();
-//                dialog.show(getSupportFragmentManager(), "to");
-//            }
-//        });
+    public void initializeOnClickHandling() {
+        from_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                positionClicked = 0;
+                Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+                DatePickerDialog dialog = new DatePickerDialog(Doctor_Add_Patient_Task.this, Doctor_Add_Patient_Task.this,
+                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                dialog.show();
+            }
+        });
+        to_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                positionClicked = 1;
+                Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+                DatePickerDialog dialog = new DatePickerDialog(Doctor_Add_Patient_Task.this, Doctor_Add_Patient_Task.this,
+                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                dialog.show();
+            }
+        });
 //        start_date.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                positionClicked = 2;
-//                DialogFragment dialog = new MyDatePickerDialog();
-//                dialog.show(getSupportFragmentManager(), "start");
+//                Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+//
+//                DatePickerDialog dialog = new DatePickerDialog(Doctor_Add_Patient_Task.this, Doctor_Add_Patient_Task.this,
+//                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+//                        calendar.get(Calendar.DAY_OF_MONTH));
+//                dialog.show();
 //            }
 //        });
-//        addtask_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Create new task
-//                // Task task = new Task ...
-//                // Go back to Patient_Overview
-//            }
-//        });
+        addtask_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Add a new task to the patient and look it up in the Doctor_Detailed_Patient Activity
+            }
+        });
     }
+
+
     //MENU-------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -145,11 +151,10 @@ public class Doctor_Add_Patient_Task extends AppCompatActivity implements DatePi
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Intent mainpageIntent = new Intent(this, Doctor_Main_Page.class);
         Intent profileIntent = new Intent(this, Doctor_Profile.class);
         Intent infoIntent = new Intent(this, Doctor_App_Info.class);
         Intent logoutIntent = new Intent(this, LoginActivity.class);
@@ -157,6 +162,9 @@ public class Doctor_Add_Patient_Task extends AppCompatActivity implements DatePi
 
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.doctor_main_page:
+                startActivity(mainpageIntent);
+                return true;
             case R.id.profile_doctor:
                 startActivity(profileIntent);
                 return true;
@@ -171,4 +179,5 @@ public class Doctor_Add_Patient_Task extends AppCompatActivity implements DatePi
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

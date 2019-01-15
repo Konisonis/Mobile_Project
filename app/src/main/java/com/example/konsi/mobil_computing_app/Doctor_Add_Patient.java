@@ -60,11 +60,10 @@ public class Doctor_Add_Patient extends AppCompatActivity implements View.OnClic
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Intent mainpageIntent = new Intent(this, Doctor_Main_Page.class);
         Intent profileIntent = new Intent(this, Doctor_Profile.class);
         Intent infoIntent = new Intent(this, Doctor_App_Info.class);
         Intent logoutIntent = new Intent(this, LoginActivity.class);
@@ -72,6 +71,9 @@ public class Doctor_Add_Patient extends AppCompatActivity implements View.OnClic
 
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.doctor_main_page:
+                startActivity(mainpageIntent);
+                return true;
             case R.id.profile_doctor:
                 startActivity(profileIntent);
                 return true;
@@ -79,7 +81,6 @@ public class Doctor_Add_Patient extends AppCompatActivity implements View.OnClic
                 startActivity(infoIntent);
                 return true;
             case R.id.log_out:
-
                 finish();
                 startActivity(logoutIntent);
                 return true;
@@ -87,6 +88,25 @@ public class Doctor_Add_Patient extends AppCompatActivity implements View.OnClic
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        _birthYear = year;
+        _month = month;
+        _day = dayOfMonth;
+        updateDisplay();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+        DatePickerDialog dialog = new DatePickerDialog(this, this,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
 
     /**
      * initializes the on click event, builds the patients data needed
@@ -125,23 +145,5 @@ public class Doctor_Add_Patient extends AppCompatActivity implements View.OnClic
         birthdate_view.setText(new StringBuilder()
                 // Month is 0 based so add 1
                 .append(_day).append(".").append(_month + 1).append(".").append(_birthYear).append(""));
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        _birthYear = year;
-        _month = month;
-        _day = dayOfMonth;
-        updateDisplay();
-    }
-
-    @Override
-    public void onClick(View v) {
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-
-        DatePickerDialog dialog = new DatePickerDialog(this, this,
-                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH));
-        dialog.show();
     }
 }
