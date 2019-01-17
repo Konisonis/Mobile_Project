@@ -8,12 +8,39 @@
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="200dip"
-        android:id="@+id/graph" />
+        android:id="@+id/graph2" />
 
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/graph2"
+    <View
+        android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="200dip"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="217dp" />
+        android:layout_height="10dp"
+        android:background="?android:attr/listDivider" />
+
+    <Button
+        android:id="@+id/measureButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/buttonshape"
+        android:textColor="@color/colorAccent"
+        android:text="Start recording measurement" />
+
+        <ListView
+            android:id="@+id/measurementList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+        </ListView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+
 </LinearLayout>
