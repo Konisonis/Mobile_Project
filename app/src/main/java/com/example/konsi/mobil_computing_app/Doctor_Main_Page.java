@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents the main activity for the doctor user
@@ -45,7 +46,11 @@ public class Doctor_Main_Page extends AppCompatActivity {
     protected ArrayList<Patient> patients;
     protected ArrayList<Patient> filteredSortedPatients;
 
+    private Doctor doctor;
+
     private PatientAndDoctorViewModel patdocmodel;
+
+    private Doctor_Main_Page instance = this;
 
 //    public static void setListViewHeightBasedOnChildren(ListView listView) {
 //        ListAdapter listAdapter = listView.getAdapter();
@@ -97,19 +102,8 @@ public class Doctor_Main_Page extends AppCompatActivity {
         // Patients_lists for display
         patients_list = findViewById(R.id.patients_list);
 
-        initializeListOptionsClicks();
-        createPatientListData();
-    }
-
-
-    /**
-     * Creates some dummy patient_list data till database functionality is implemented
-     */
-    private void createPatientListData() {
-
-
         this.patients = new ArrayList<Patient>();
-        filteredSortedPatients = new ArrayList<Patient>();
+        this.filteredSortedPatients = new ArrayList<Patient>();
 
         // Get the dummy patients for display
         Context context = getApplicationContext();
@@ -119,16 +113,31 @@ public class Doctor_Main_Page extends AppCompatActivity {
         Doctor doc = gson.fromJson(json, Doctor.class);
         if (doc == null) {
             Log.e("DOC ERROR:", "Doctor is null");
+            Toast.makeText(Doctor_Main_Page.this, "Loading doctor failed", Toast.LENGTH_LONG).show();
+        } else {
+            this.doctor = doc;
+            initializeListOptionsClicks();
+            createPatientListData();
         }
+    }
 
-        this.patients = (ArrayList) patdocmodel.getAllPatientsByDoctorId(doc.getId());
 
+    /**
+     * Creates some dummy patient_list data till database functionality is implemented
+     */
+    private void createPatientListData() {
+
+        this.patients = (ArrayList) patdocmodel.getAllPatientsByDoctorId(this.doctor.getId());
+
+        if (this.filteredSortedPatients.size() == 0) {
+            this.filteredSortedPatients = this.patients;
+        }
         Log.d("READ_PATIENTS_FROM_DB", "Everything okay");
 
         images = new ArrayList<>();
         ids = new ArrayList<>();
         fullnames = new ArrayList<>();
-        for(Patient patient : this.patients) {
+        for(Patient patient : this.filteredSortedPatients) {
             int imageReference;
             try {
                 Log.e("IMAGEREFERENCE:", patient.getForname().toLowerCase());
@@ -174,14 +183,16 @@ public class Doctor_Main_Page extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String searchtext = search_patient_edittext.getText().toString();
-                // Check for five numbers in a row
-                if (searchtext.matches("[0-9]{5}")) {
-                    // its the ID - look in the patients_list
-                } else if(searchtext.matches("[a-zA-Z]{2,} ?[a-zA-Z]*")) {
-                    // its the name - look in the patients_list
-                } else {
-                    // its the date of birth - look in the patients_list
-                }
+                List<Patient> patients = patdocmodel.getAllPatientsByDoctorId(doctor.getId());
+                List<Patient> filteredsortedPatients = new ArrayList<Patient>();
+                // Matching
+                searchtextMatchingAndDeclaringOfPatients(patients, filteredsortedPatients, searchtext);
+
+                // Size checking and loading data depending on size of filteredsortedpatients
+                filteredSortedPatientsSizeChecking(filteredsortedPatients, patients);
+
+                // Create new list with new patients
+                createPatientListData();
             }
         });
         // Sort the table by criteria
@@ -198,6 +209,56 @@ public class Doctor_Main_Page extends AppCompatActivity {
 
             }
         });
+    }
+
+    /**
+     * Matches the searchtext to patterns and checks what the user is looking for and filters the fitting users
+     * @param patients the complete patientlist
+     * @param fsPatients the list to write filtered patients to
+     * @param searchtext the text to search for
+     */
+    private void searchtextMatchingAndDeclaringOfPatients(List<Patient> patients, List<Patient> fsPatients, String searchtext) {
+        if (searchtext.matches("[0-9]{5}")) {
+            // its the ID - look in the patients_list
+            for(Patient p : patients) {
+                if (p.getId().equals(searchtext)) {
+                    fsPatients.add(p);
+                }
+            }
+        } else if(searchtext.matches("[a-zA-Z]{2,} ?[a-zA-Z]*")) {
+            // its the name - look in the patients_list
+            for(Patient p : patients) {
+                if (p.getFullname().contains(searchtext)) {
+                    fsPatients.add(p);
+                }
+            }
+        } else if(searchtext.matches("[1-9]{1,2}\\.[1-9]{1,2}\\.[1-2]{1}[0-9]{3}")){
+            // its the date of birth - look in the patients_list
+            for(Patient p : patients) {
+                if (p.getBirthdate().equals(searchtext)) {
+                    fsPatients.add(p);
+                }
+            }
+        } else if (searchtext.length() == 0){
+            fsPatients = patients;
+        } else {
+            return;
+        }
+    }
+
+    /**
+     * Checks the size of the filtered patients list and decides to load all patients or only filtered ones
+     * @param fspatients the filtered patients list
+     * @param patients the normal patients list
+     */
+    private void filteredSortedPatientsSizeChecking(List<Patient> fspatients, List<Patient> patients) {
+        if (fspatients.size() > 0) {
+            filteredSortedPatients = (ArrayList<Patient>) fspatients;
+        } else if (fspatients.size() == 0){
+            filteredSortedPatients = new ArrayList<Patient>();
+        } else if (fspatients.size() == patients.size()) {
+            filteredSortedPatients = (ArrayList<Patient>) patients;
+        }
     }
 
     /**

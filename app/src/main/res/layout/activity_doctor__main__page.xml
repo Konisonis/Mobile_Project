@@ -72,7 +72,6 @@
             android:layout_marginBottom="16dp"
             android:hint="@string/searchpatient_hint"
             android:inputType="text"
-            android:textColor="@color/DefaultFontColor"
             android:textSize="@dimen/editTextFontSize"
             android:textColorHint="#cfcfcf"
             android:background="@drawable/edittext_rounded"/>
