@@ -1,6 +1,8 @@
 package com.example.konsi.mobil_computing_app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -66,7 +68,12 @@ public class Doctor_App_Info extends AppCompatActivity {
                 startActivity(profileIntent);
                 return true;
             case R.id.log_out:
-                finish();
+                //Remove all user data and the stack before starting new intent
+                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("sharedPref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.clear();
+                editor.apply();
                 startActivity(logoutIntent);
                 return true;
             default:

@@ -388,7 +388,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     //save object as Json String in sharedPreferences
                     String jsonObject = gson.toJson(mPatient);
                     editor.putString("Patient", jsonObject);
-                    editor.commit();
                     editor.apply();
 
                     /*Retrive data somewhere ele in the app

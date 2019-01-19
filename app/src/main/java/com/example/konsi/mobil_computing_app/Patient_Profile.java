@@ -1,5 +1,6 @@
 package com.example.konsi.mobil_computing_app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -25,11 +27,6 @@ import org.json.JSONObject;
 
 public class Patient_Profile extends AppCompatActivity {
     private static final String TAG = "MyActivity";
-    PopupWindow popUp;
-    LinearLayout layout;
-    TextView tv;
-    ViewGroup.LayoutParams params;
-    LinearLayout mainLayout;
     Button but;
     boolean click = true;
 
@@ -56,31 +53,20 @@ public class Patient_Profile extends AppCompatActivity {
             }
         }
 
-        popUp = new PopupWindow(this);
-        layout = new LinearLayout(this);
-        tv = new TextView(this);
         but = findViewById(R.id.changePassword);
         but.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 if (click) {
-                    popUp.showAtLocation(layout, Gravity.TOP, 5, -50);
-                    popUp.update(0, -10, 600, 800);
+                    Toast.makeText (getApplicationContext(), "Password changed!", Toast.LENGTH_LONG).show();
                     click = false;
                 } else {
-                    popUp.dismiss();
                     click = true;
                 }
             }
 
         });
-        params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        tv.setText("Hi this is a sample text for popup window");
-        layout.addView(tv, params);
-        popUp.setContentView(layout);
-        // popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
+
     }
 
 
@@ -99,7 +85,7 @@ public class Patient_Profile extends AppCompatActivity {
         Intent profileIntent = new Intent(this, Patient_Profile.class);
         Intent devicesIntent = new Intent(this, Patient_Devices_List.class);
         Intent infoIntent = new Intent(this, Patient_App_Info.class);
-        Intent logoutIntent = new Intent(this, Patient_Devices_List.class);
+        Intent logoutIntent = new Intent(this, LoginActivity.class);
         Intent messageIntent = new Intent(this,Patient_Messages.class);
 
 
@@ -118,7 +104,13 @@ public class Patient_Profile extends AppCompatActivity {
                 startActivity(infoIntent);
                 return true;
             case R.id.logout:
-                //TODO Logout
+                //Remove all user data and the stack before starting new intent
+                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("sharedPref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.clear();
+                editor.apply();
+                startActivity(logoutIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
