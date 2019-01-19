@@ -80,15 +80,15 @@
             android:id="@+id/search_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginLeft="64dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginRight="64dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:layout_gravity="center"
             android:text="@string/searchpatientinlist"
             android:textColor="@color/DefaultFontColor"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/buttonshape"
             android:gravity="center"/>
     </LinearLayout>
 

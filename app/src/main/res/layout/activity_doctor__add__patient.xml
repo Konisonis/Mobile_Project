@@ -151,7 +151,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
         <TextView
             android:layout_width="90dp"
@@ -180,29 +181,14 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <Button
         android:id="@+id/addpatient_view"
         android:layout_width="wrap_content"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:background="@color/colorPrimaryDark"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="468dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:gravity="center"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:text="@string/addpatienttolist"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/editTextFontSize" />
-    </LinearLayout>
+        android:background="@drawable/buttonshape"
+        android:gravity="center"
+        android:text="@string/addpatienttolist"
+        android:textColor="@color/colorAccent" />
 
 </LinearLayout>

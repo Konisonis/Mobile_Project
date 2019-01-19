@@ -34,7 +34,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Heartbeat"/>
+            android:hint="Heartbeat"
+            android:textColorHint="#efefef"/>
 
     </LinearLayout>
 
@@ -148,15 +149,11 @@
 
     <Button
         android:id="@+id/addtask_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="72dp"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginRight="72dp"
-        android:layout_marginEnd="72dp"
         android:layout_gravity="center"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/buttonshape"
         android:text="Add task"
         android:textColor="@color/DefaultFontColor" />
 

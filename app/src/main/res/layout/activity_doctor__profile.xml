@@ -6,17 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".Doctor_Profile"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorAccent"
         android:text="Profile Info"
-        android:textSize="18dp"
+        android:textSize="24dp"
+        android:textFontWeight="bold"
         android:textAlignment="center"
         />
-
 
     <ImageView
         android:layout_width="wrap_content"
@@ -29,16 +31,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Account ID"
-        android:textColor="@color/colorPrimaryDark"
         android:textSize="16dp"
         android:textStyle="bold"
+        android:textColor="@color/DefaultFontColor"
         android:layout_marginTop="20dp"/>
 
     <TextView
         android:id="@+id/accountId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/DefaultFontColor"
         android:textSize="16dp"
         android:text="TextView" />
 
@@ -46,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/DefaultFontColor"
         android:textSize="16dp"
         android:textStyle="bold"
         android:layout_marginTop="20dp"/>
@@ -55,7 +57,7 @@
         android:id="@+id/accountName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/DefaultFontColor"
         android:textSize="16dp"
         android:text="TextView" />
 
@@ -63,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date of Birth"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/DefaultFontColor"
         android:textSize="16dp"
         android:textStyle="bold"
         android:layout_marginTop="20dp"/>
@@ -73,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16dp"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/DefaultFontColor"
         android:text="TextView" />
 
     <Button
@@ -83,7 +85,17 @@
         android:background="@drawable/buttonshape"
         android:textColor="@color/colorAccent"
         android:layout_marginTop="20dp"
-        android:onClick="onClick"
+        android:onClick="onClickChangePassword"
         android:text="Change Password" />
+
+    <Button
+        android:id="@+id/changeProfilePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonshape"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="20dp"
+        android:onClick="onClickChangeProfilePicture"
+        android:text="Change Picture" />
 
 </LinearLayout>

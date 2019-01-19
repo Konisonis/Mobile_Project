@@ -1,5 +1,6 @@
 package com.example.konsi.mobil_computing_app;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,6 +79,18 @@ public class Doctor_Main_Page extends AppCompatActivity {
 //        listView.setLayoutParams(params);
 //        listView.requestLayout();
 //    }
+
+    /**
+     * Hides the keyboard when opened
+     * @param activity the Activity where the keyboard is opened in
+     */
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
 
     /**
      * Gets called when the activity is created
@@ -193,6 +207,7 @@ public class Doctor_Main_Page extends AppCompatActivity {
 
                 // Create new list with new patients
                 createPatientListData();
+                hideSoftKeyboard(Doctor_Main_Page.this);
             }
         });
         // Sort the table by criteria
@@ -218,7 +233,7 @@ public class Doctor_Main_Page extends AppCompatActivity {
      * @param searchtext the text to search for
      */
     private void searchtextMatchingAndDeclaringOfPatients(List<Patient> patients, List<Patient> fsPatients, String searchtext) {
-        if (searchtext.matches("[0-9]{5}")) {
+        if (searchtext.matches("[0-9]{3}")) {
             // its the ID - look in the patients_list
             for(Patient p : patients) {
                 if (p.getId().equals(searchtext)) {
@@ -228,7 +243,7 @@ public class Doctor_Main_Page extends AppCompatActivity {
         } else if(searchtext.matches("[a-zA-Z]{2,} ?[a-zA-Z]*")) {
             // its the name - look in the patients_list
             for(Patient p : patients) {
-                if (p.getFullname().contains(searchtext)) {
+                if (p.getFullname().toLowerCase().contains(searchtext.toLowerCase())) {
                     fsPatients.add(p);
                 }
             }
@@ -241,8 +256,10 @@ public class Doctor_Main_Page extends AppCompatActivity {
             }
         } else if (searchtext.length() == 0){
             fsPatients = patients;
-        } else {
-            return;
+        }
+        if (fsPatients.size() == 0) {
+            fsPatients = patients;
+            Toast.makeText(Doctor_Main_Page.this, "No patient was found", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -365,6 +382,12 @@ public class Doctor_Main_Page extends AppCompatActivity {
     }
 
     //MENU-------------------------------
+
+    /**
+     * Decides which inflater handles the menu
+     * @param menu the menu to handle
+     * @return if event was successful
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -373,7 +396,11 @@ public class Doctor_Main_Page extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Decides what to do if an option item got selected
+     * @param item the selected item
+     * @return if event was successful
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

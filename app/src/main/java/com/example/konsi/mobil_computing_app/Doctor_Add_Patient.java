@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,7 +26,7 @@ import java.util.TimeZone;
  */
 public class Doctor_Add_Patient extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
-    private LinearLayout addpatient;
+    private Button addpatient;
     private EditText forname_view;
     private EditText lastname_view;
     private EditText birthdate_view;
@@ -53,6 +54,12 @@ public class Doctor_Add_Patient extends AppCompatActivity implements View.OnClic
     }
 
     //MENU-------------------------------
+
+    /**
+     * Decides which inflater handles the menu
+     * @param menu the menu to handle
+     * @return if event was successful
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -60,6 +67,11 @@ public class Doctor_Add_Patient extends AppCompatActivity implements View.OnClic
         return true;
     }
 
+    /**
+     * Decides what to do if an option item got selected
+     * @param item the selected item
+     * @return if event was successful
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -89,6 +101,13 @@ public class Doctor_Add_Patient extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * Changes the internal calendar values of year, month and day and updates the displayed value
+     * @param view the selected view
+     * @param year the chosen year
+     * @param month the chosen month
+     * @param dayOfMonth the chosen day
+     */
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         _birthYear = year;
@@ -97,6 +116,10 @@ public class Doctor_Add_Patient extends AppCompatActivity implements View.OnClic
         updateDisplay();
     }
 
+    /**
+     * Handles the click event for the date of birth field
+     * @param v the selected View
+     */
     @Override
     public void onClick(View v) {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
@@ -140,6 +163,9 @@ public class Doctor_Add_Patient extends AppCompatActivity implements View.OnClic
         });
     }
 
+    /**
+     * Updates the displayed date of birth value
+     */
     private void updateDisplay() {
 
         birthdate_view.setText(new StringBuilder()

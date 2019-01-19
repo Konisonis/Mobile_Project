@@ -99,6 +99,12 @@ public class Doctor_Detailed_Patient extends AppCompatActivity {
     }
 
     //MENU-------------------------------
+
+    /**
+     * Decides which inflater handles the menu
+     * @param menu the menu to handle
+     * @return if event was successful
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -106,6 +112,11 @@ public class Doctor_Detailed_Patient extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Decides what to do if an option item got selected
+     * @param item the selected item
+     * @return if event was successful
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

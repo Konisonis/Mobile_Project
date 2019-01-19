@@ -61,17 +61,17 @@ public abstract class AppDatabase extends RoomDatabase {
         protected Void doInBackground(Void... voids) {
 
             patientDao.deleteAll();
-            patientDao.insert(new Patient("123",1,"Hanns","Jürgen","01.01.2019","hanns@patient.de","admin123","321"));
-            patientDao.insert(new Patient("456",1,"Peter","Jürgen","01.01.2019","peter@patient.de","admin123","321"));
-            patientDao.insert(new Patient("789",1,"Konsi","Jürgen","01.01.2019","konsi@patient.de","admin123","321"));
-            patientDao.insert(new Patient("109",1,"Ravell","Jürgen","01.01.2019","ravell@patient.de","admin123","321"));
+            patientDao.insert(new Patient("123",1,"Hanns","Ibal","01.01.2019","hanns@patient.de","admin123","321"));
+            patientDao.insert(new Patient("456",1,"Peter","Pan","01.01.2019","peter@patient.de","admin123","321"));
+            patientDao.insert(new Patient("789",1,"Konsi","Nuss","01.01.2019","konsi@patient.de","admin123","321"));
+            patientDao.insert(new Patient("109",1,"Ravell","Heerdegen","01.01.2019","ravell@patient.de","admin123","321"));
             patientDao.insert(new Patient("192",1,"Admin","Admin","01.01.2019","admin@patient.de","admin123","321"));
 
             //add dummy doctors
 
             doctorDao.deleteAll();
-            doctorDao.insert(new Doctor("321","Admin","Admin","admin@doctor.de","01.01.19","admin123"));
-            doctorDao.insert(new Doctor("098","Admin","Admin","admin@doctor1.de","01.01.19","admin123"));
+            doctorDao.insert(new Doctor("321","Admin","Superdoctor","admin@doctor.de","01.01.19","admin123"));
+            doctorDao.insert(new Doctor("098","Dr. Chiro","Praqtica","admin@doctor1.de","01.01.19","admin123"));
             doctorDao.insert(new Doctor("876","Admin","Admin","admin@doctor2.de","01.01.19","admin123"));
 
             return null;

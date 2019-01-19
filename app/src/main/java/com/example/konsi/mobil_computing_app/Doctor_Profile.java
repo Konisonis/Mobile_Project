@@ -13,6 +13,9 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Represents a View to display the profile data of a doctor
+ */
 public class Doctor_Profile extends AppCompatActivity {
 
     @Override
@@ -38,7 +41,27 @@ public class Doctor_Profile extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handles the click event for the change password button
+     */
+    public void onClickChangePassword() {
+        // TODO
+    }
+
+    /**
+     * Handles the click event for the change profilepicture button
+     */
+    public void onClickChangeProfilePicture() {
+        // TODO
+    }
+
     //MENU-------------------------------
+
+    /**
+     * Decides which inflater handles the menu
+     * @param menu the menu to handle
+     * @return if event was successful
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -46,8 +69,11 @@ public class Doctor_Profile extends AppCompatActivity {
         return true;
     }
 
-
-
+    /**
+     * Decides what to do if an option item got selected
+     * @param item the selected item
+     * @return if event was successful
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
