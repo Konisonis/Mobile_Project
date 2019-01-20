@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorAccent"
+        android:layout_marginTop="30dp"
         android:text="App Info"
         android:textSize="18dp"
         android:textAlignment="center"
