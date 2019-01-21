@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorAccent">
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="200dip"
         android:id="@+id/graph2" />
 
     <View
-        android:id="@+id/divider"
+        android:id="@+id/divider2"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="?android:attr/listDivider" />
+        android:layout_height="18dp"
+    />
 
     <Button
         android:id="@+id/measureButton"
@@ -26,12 +27,17 @@
         android:textColor="@color/colorAccent"
         android:text="Start recording measurement" />
 
-        <ListView
-            android:id="@+id/measurementList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible">
-        </ListView>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        />
+
+    <ListView
+        android:id="@+id/measurementList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"></ListView>
 
     <ScrollView
         android:layout_width="match_parent"

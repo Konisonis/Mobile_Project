@@ -7,7 +7,7 @@
     tools:context=".Patient_Measurements">
     <fragment
         android:id="@+id/fragment_main2"
-        android:name="com.example.konsi.mobil_computing_app.RealtimeUpdates"
+        android:name="com.example.konsi.mobil_computing_app.RealtimeHeartBeatUpdates"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

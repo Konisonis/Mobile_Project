@@ -1,13 +1,15 @@
 package com.example.konsi.mobil_computing_app;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MockMeasurement {
     private int counter = 0;
     private long now;
 
 
-    public int getRandom(){
+    public int getHeartBeat(){
         int heartBeat=0;
         switch (counter){
             case 0:
@@ -58,8 +60,15 @@ public class MockMeasurement {
         now = System.currentTimeMillis();
         return now;
     }
-    public int calculateTime(long then){
-        long howlong = getTimestamp() - then;
+
+    public  String getDate(long timestamp){
+        String dateString;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        dateString = formatter.format(new Date(timestamp));
+        return dateString;
+    }
+    public int calculateTime(long then, long now){
+        long howlong = now - then;
         int result = (int) (howlong/1000);
         return result;
     }
