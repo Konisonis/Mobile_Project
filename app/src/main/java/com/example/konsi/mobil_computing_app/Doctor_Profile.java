@@ -9,9 +9,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,53 +20,43 @@ import org.json.JSONObject;
  * Represents a View to display the profile data of a doctor
  */
 public class Doctor_Profile extends AppCompatActivity {
-    Button but;
-    boolean click = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor__profile);
 
-        SharedPreferences settings = getSharedPreferences("sharedPref", 0);
+        Context context = getApplicationContext();
+        SharedPreferences sharedPref = context.getSharedPreferences("sharedPref", Context.MODE_PRIVATE);
         TextView userName = findViewById(R.id.accountName);
         TextView userId = findViewById(R.id.accountId);
         TextView dob = findViewById(R.id.dob);
-        if(settings != null){
-            String doctor = settings.getString("Doctor", "Not Found");
+        if(sharedPref != null){
+            Gson gson = new Gson();
+            String json = sharedPref.getString("Doctor", "");
             try{
-                JSONObject doctorJson = new JSONObject(doctor);
-                userId.setText(doctorJson.getString("id"));
-                userName.setText(doctorJson.getString("forname") + " " +doctorJson.getString("lastname") );
-                dob.setText(doctorJson.getString("birthdate"));
+                Doctor doc = gson.fromJson(json, Doctor.class);
+                userId.setText(doc.getId());
+                userName.setText(doc.getForname() + " " + doc.getLastname());
+                dob.setText(doc.getBirthdate());
 
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
+    }
 
-        /**
-         * Handles the click event for the change password button
-         */
-        but = findViewById(R.id.changePassword);
-        click = true;
-        but.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                if (click) {
-                    Toast.makeText (getApplicationContext(), "Password changed!", Toast.LENGTH_LONG).show();
-                    click = false;
-                } else {
-                    click = true;
-                }
-            }
-
-        });
+    /**
+     * Handles the click event for the change password button
+     */
+    public void onClickChangePassword(View view) {
+        // TODO
     }
 
     /**
      * Handles the click event for the change profilepicture button
      */
-    public void onClickChangeProfilePicture() {
+    public void onClickChangeProfilePicture(View view) {
         // TODO
     }
 

@@ -15,8 +15,8 @@ import org.json.JSONObject;
 
 public class Patient_Profile extends Patient_MasterActivity {
     private static final String TAG = "MyActivity";
-    Button but;
-    boolean click = true;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +41,6 @@ public class Patient_Profile extends Patient_MasterActivity {
             }
         }
 
-        but = findViewById(R.id.changePassword);
-        but.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                if (click) {
-                    Toast.makeText (getApplicationContext(), "Password changed!", Toast.LENGTH_LONG).show();
-                    click = false;
-                } else {
-                    click = true;
-                }
-            }
-
-        });
 
     }
 
@@ -64,10 +51,9 @@ public class Patient_Profile extends Patient_MasterActivity {
         inflater.inflate(R.menu.patient_menu, menu);
         return true;
     }
-
-
-
-    public void onClick(View view){
-        Log.d(TAG, "Password changed ");
+    public void onClick(View view) {
+        Toast.makeText (getApplicationContext(), "Password changed!", Toast.LENGTH_LONG).show();
     }
+
+
 }

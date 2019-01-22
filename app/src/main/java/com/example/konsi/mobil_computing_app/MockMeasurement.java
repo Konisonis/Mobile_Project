@@ -1,8 +1,8 @@
 package com.example.konsi.mobil_computing_app;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 public class MockMeasurement {
     private int counter = 0;
@@ -55,6 +55,10 @@ public class MockMeasurement {
 
         }
         return  heartBeat;
+    }
+    public int getFootStep(){
+        int Step = 6;
+        return 6;
     }
     public long getTimestamp(){
         now = System.currentTimeMillis();

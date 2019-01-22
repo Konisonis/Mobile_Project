@@ -1,13 +1,11 @@
 package com.example.konsi.mobil_computing_app;
 
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +40,7 @@ public class RealtimeHeartBeatUpdates extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+        rootView = inflater.inflate(R.layout.fragment_hearbeat, container, false);
 
         //Setting up Line graph view for heartbeat
         graph2 = rootView.findViewById(R.id.graph2);
