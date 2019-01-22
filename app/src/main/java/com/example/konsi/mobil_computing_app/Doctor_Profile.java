@@ -9,9 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,8 +18,7 @@ import org.json.JSONObject;
  * Represents a View to display the profile data of a doctor
  */
 public class Doctor_Profile extends AppCompatActivity {
-    Button but;
-    boolean click = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,30 +40,19 @@ public class Doctor_Profile extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }
+    }
 
-        /**
-         * Handles the click event for the change password button
-         */
-        but = findViewById(R.id.changePassword);
-        click = true;
-        but.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                if (click) {
-                    Toast.makeText (getApplicationContext(), "Password changed!", Toast.LENGTH_LONG).show();
-                    click = false;
-                } else {
-                    click = true;
-                }
-            }
-
-        });
+    /**
+     * Handles the click event for the change password button
+     */
+    public void onClickChangePassword(View view) {
+        // TODO
     }
 
     /**
      * Handles the click event for the change profilepicture button
      */
-    public void onClickChangeProfilePicture() {
+    public void onClickChangeProfilePicture(View view) {
         // TODO
     }
 

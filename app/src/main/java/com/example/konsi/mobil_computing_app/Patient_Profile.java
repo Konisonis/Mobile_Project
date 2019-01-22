@@ -66,8 +66,4 @@ public class Patient_Profile extends Patient_MasterActivity {
     }
 
 
-
-    public void onClick(View view){
-        Log.d(TAG, "Password changed ");
-    }
 }
