@@ -9,10 +9,13 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-@Database(entities = {Patient.class,Doctor.class}, version = 1)
+import java.util.Date;
+
+@Database(entities = {Patient.class,Doctor.class,Message.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract PatientDao patientDao();
-   public abstract DoctorDao doctorDao();
+    public abstract DoctorDao doctorDao();
+    public abstract MessageDao messageDao();
 
     private static AppDatabase INSTANCE;
 
@@ -51,10 +54,12 @@ public abstract class AppDatabase extends RoomDatabase {
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
         private final PatientDao patientDao;
         private final DoctorDao doctorDao;
+        private final MessageDao messageDao;
 
         public PopulateDbAsync(AppDatabase instance) {
             patientDao = instance.patientDao();
             doctorDao = instance.doctorDao();
+            messageDao = instance.messageDao();
         }
 
         @Override
@@ -73,6 +78,11 @@ public abstract class AppDatabase extends RoomDatabase {
             doctorDao.insert(new Doctor("321","Admin","Superdoctor","admin@doctor.de","01.01.19","admin123"));
             doctorDao.insert(new Doctor("098","Dr. Chiro","Praqtica","admin@doctor1.de","01.01.19","admin123"));
             doctorDao.insert(new Doctor("876","Admin","Admin","admin@doctor2.de","01.01.19","admin123"));
+
+            //add dummy messages
+
+            messageDao.deleteAll();
+            messageDao.insert(new Message("111", "1.1.1", "This is a test message", "098", "109"));
 
             return null;
         }
