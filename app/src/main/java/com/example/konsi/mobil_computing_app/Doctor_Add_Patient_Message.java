@@ -8,13 +8,74 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Doctor_Add_Patient_Message extends AppCompatActivity {
-
+    Button save;
+    ArrayList<String> addArray = new ArrayList<String>();
+    EditText txt;
+    ListView show;
+    TextView patientname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor__add__patient__message);
+
+        patientname =(TextView) findViewById(R.id.patient_nam);
+
+        /*Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        String patientID = extras.getString("patient_id");
+        String patiNam = extras.getString("patient_name");*/
+
+        //patientname.setText(patiNam);
+        //set the current time
+        setTime();
+        txt = (EditText) findViewById(R.id.edit_text);
+        show=(ListView)findViewById(R.id.listView);
+        save=(Button)findViewById(R.id.send_messagebutton);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String getInput=txt.getText().toString();
+                if(addArray.contains(getInput)){
+                    Toast.makeText(getBaseContext(), "Item already added", Toast.LENGTH_LONG).show();
+                }
+                else if(getInput==null||getInput.trim().equals("")){
+                    Toast.makeText(getBaseContext(),"Input field is empty", Toast.LENGTH_LONG).show();
+
+                }
+                else{
+                    addArray.add(getInput);
+                    ArrayAdapter<String> adapter= new ArrayAdapter<String>(Doctor_Add_Patient_Message.this,android.R.layout.simple_list_item_1,addArray);
+                    show.setAdapter(adapter);
+                    ((EditText)findViewById(R.id.edit_text)).setText(" ");
+                }
+            }
+
+        });
+    }
+
+
+
+    public void setTime()
+    {
+        final Calendar calendar=Calendar.getInstance();
+        SimpleDateFormat format= new SimpleDateFormat("dd/MM/yy HH:mm");
+        String time=format.format(calendar.getTime());
+        final TextView textViewDate=findViewById(R.id.current_date);
+        textViewDate.setText(time);
     }
 
     //MENU-------------------------------

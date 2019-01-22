@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Doctor_Add_Patient"
+    tools:context=".Doctor_Add_Patient_Message"
     android:orientation="vertical"
     android:background="@color/colorPrimary">
     <LinearLayout
@@ -25,7 +25,7 @@
             android:textSize="24sp"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/patient_name"
+            android:id="@+id/patient_nam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -67,14 +67,14 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="50dp"
         android:gravity="center"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -84,18 +84,18 @@
             android:text="Message"
             android:textColor="@color/DefaultFontColor"
             android:textSize="18sp" />
+
         <EditText
             android:id="@+id/edit_text"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_marginTop="8dp"
             android:layout_gravity="center"
             android:layout_marginLeft="25dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="25dp"
-            android:inputType="text|textMultiLine"
             android:background="@color/DefaultFontColor"
-            android:gravity="top"/>
-
+            android:gravity="top"
+            android:inputType="text|textMultiLine" />
 
 
     </LinearLayout>
@@ -139,6 +139,16 @@
         android:gravity="center"
         android:text="Send message"
         android:textColor="@color/colorAccent" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ListView
+            android:id="@+id/listView"
+            android:textColor="#ff0000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+    </LinearLayout>
 
 
 
