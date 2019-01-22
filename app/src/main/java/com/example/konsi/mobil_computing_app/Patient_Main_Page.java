@@ -25,13 +25,7 @@ public class Patient_Main_Page extends Patient_MasterActivity {
 
     public void clickHeartbeat(View view){
         Intent heartBeatIntent = new Intent(this, Patient_Measurements.class);
-        heartBeatIntent.putExtra("whichFragment", 2);
         startActivity(heartBeatIntent);
-    }
-    public void clickFootStep(View view){
-        Intent footStepIntent = new Intent(this, Patient_Measurements.class);
-        footStepIntent.putExtra("whichFragment", 1);
-        startActivity(footStepIntent);
     }
 
 

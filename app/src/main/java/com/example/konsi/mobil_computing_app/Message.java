@@ -6,8 +6,6 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-import java.util.Date;
-
 @Entity
 public class Message {
 
@@ -16,16 +14,13 @@ public class Message {
     private String id;
     @ColumnInfo
     private String messageContent;
-    @ColumnInfo
-    private String date;
     @ForeignKey(entity = Doctor.class, parentColumns = "id", childColumns = "doctorId")
     private String doctorId;
     @ForeignKey(entity = Patient.class, parentColumns = "id", childColumns = "patientId")
     private String patientId;
 
-    public Message(String id, String date, String messageContent, String doctorId, String patientId){
+    public Message(String id, String messageContent, String doctorId, String patientId){
         setId(id);
-        setDate(date);
         setMessageContent(messageContent);
         setDoctorId(doctorId);
         setPatientId(patientId);
@@ -42,10 +37,6 @@ public class Message {
     public String getMessageContent() { return messageContent; }
 
     public void setMessageContent(String messageContent) { this.messageContent = messageContent; }
-
-    public String getDate(){ return date; };
-
-    public void setDate(String date){ this.date = date; }
 
     public String getDoctorId() { return doctorId; }
 

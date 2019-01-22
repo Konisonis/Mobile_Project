@@ -36,8 +36,5 @@ public class PatientAndDoctorViewModel extends AndroidViewModel {
         return db.patientDao().findByEmail(eMail);
     }
 
-    public void saveMessageToDb(Message message) { db.messageDao().insert(message); }
-
-    public List<Message> getAllMessages(){ return db.messageDao().getAll(); }
 
 }
