@@ -76,6 +76,23 @@
         android:textColor="@color/colorPrimaryDark"
         android:text="TextView" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Supervising doctor"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/supervisingdoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Dr. Natividado Martin" />
+
     <Button
         android:id="@+id/changePassword"
         android:layout_width="wrap_content"
@@ -84,6 +101,16 @@
         android:background="@drawable/buttonshape"
         android:onClick="onClick"
         android:text="Change Password"
+        android:textColor="@color/colorAccent" />
+
+    <Button
+        android:id="@+id/changePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/buttonshape"
+        android:onClick="onClick"
+        android:text="Change Picture"
         android:textColor="@color/colorAccent" />
 
 
