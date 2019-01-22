@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -45,6 +46,6 @@ public class Patient_App_Info extends Patient_MasterActivity {
 
 
     public void onClick(View view) {
-        Log.d(TAG, "App Updated ");
+        Toast.makeText (getApplicationContext(), "App updated!", Toast.LENGTH_LONG).show();
     }
 }

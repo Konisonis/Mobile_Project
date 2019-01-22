@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -88,5 +90,8 @@ public class Doctor_App_Info extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void onClick(View view) {
+        Toast.makeText (getApplicationContext(), "App updated!", Toast.LENGTH_LONG).show();
     }
 }
